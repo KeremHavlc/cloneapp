@@ -47,11 +47,33 @@ const Header = () => {
                   "Detaylı Arama"
                 )}
               </button>
-
-              <div className="ml-[58px]">
-                <button>Giriş Yap</button>
+            </div>
+          </div>
+          <div className="ml-[163px] flex text-white text-sm ">
+            <button className="hover:underline">Giriş Yap</button>
+            <span className="ml-2 mr-2 mt-[15px] border-l h-7 border-gray-500 shadow-2xl "></span>
+            <button
+              className="hover:underline"
+              onClick={() => navigate("/register")}
+            >
+              Hesap Aç
+            </button>
+          </div>
+          <div>
+            <div className="border ml-[20px] mt-[12px] w-[157px] h-[33px]">
+              <div className="flex justify-center items-center mt-[4px] text-sm font-bold">
+                <div className="text-white">
+                  oto
+                  <span className=" bg-sari font-bold text-black rounded-sm">
+                    bid
+                  </span>{" "}
+                  ile Aracını Sat
+                </div>
               </div>
             </div>
+          </div>
+          <div className="border rounded-sm bg-mavi ml-[11px] w-[138px] h-[33px] flex items-center justify-center mt-[12px] border-none text-white text-sm">
+            <button>Ücretsiz* İlan Ver</button>
           </div>
         </div>
       </div>
