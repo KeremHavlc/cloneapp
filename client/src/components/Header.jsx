@@ -12,7 +12,7 @@ const Header = () => {
   };
   return (
     <>
-      <div>
+      <div className="">
         <div className="h-[59px] bg-gri border-b flex ">
           <div className="ml-[394px] pt-[12px]">
             <div className=" flex justify-center items-center bg-sari w-[160px] h-[33px] font-bold text-xl select-none">
@@ -50,7 +50,12 @@ const Header = () => {
             </div>
           </div>
           <div className="ml-[163px] flex text-white text-sm ">
-            <button className="hover:underline">Giriş Yap</button>
+            <button
+              className="hover:underline"
+              onClick={() => navigate("/login")}
+            >
+              Giriş Yap
+            </button>
             <span className="ml-2 mr-2 mt-[15px] border-l h-7 border-gray-500 shadow-2xl "></span>
             <button
               className="hover:underline"
