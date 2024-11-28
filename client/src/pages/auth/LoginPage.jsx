@@ -1,10 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [values, setValues] = useState("");
+  const handleLogin = () => {
+    if (!email || !password) {
+      alert("Lütfen e-posta ve şifreyi doldurun!");
+      return;
+    }
+    setValues(`Email: ${email}, Password: ${password}`);
+  };
+  useEffect(() => {
+    if (values) {
+      console.log(values);
+    }
+  }, [values]);
+
+  const onFinish = async (values) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+
+      const data = await res.json();
+      if (res.status === 200 || res.status === 201) {
+        const token = data.token;
+        localStorage.setItem("authToken", token);
+        navigate("/");
+      } else {
+        alert("Kullanıcı Adi veya şifre Hatali!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="bg-loginback min-h-screen flex flex-col justify-between">
@@ -23,11 +61,13 @@ const LoginPage = () => {
             className="mt-[16px] w-[400px] h-[50px] border border-gray-300 ml-[48px] placeholder:pl-4 focus:border-cyan-500 focus:outline-none focus:pl-[20px]"
             type="text"
             placeholder="E-posta adresi"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             className="mt-[16px] w-[400px] h-[50px] border border-gray-300 ml-[48px] placeholder:pl-4 focus:border-cyan-500 focus:outline-none"
             type="password"
             placeholder="Şifre"
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <div className="mt-[10px] ml-[48px] flex">
@@ -41,7 +81,10 @@ const LoginPage = () => {
           </div>
 
           <div className="ml-[48px] mt-[20px]">
-            <button className="flex justify-center items-center border w-[400px] h-[40px] bg-mavi text-white font-bold hover:bg-blue-500 ">
+            <button
+              className="flex justify-center items-center border w-[400px] h-[40px] bg-mavi text-white font-bold hover:bg-blue-500"
+              onClick={() => onFinish({ email, password })}
+            >
               E-posta ile giriş yap
             </button>
           </div>

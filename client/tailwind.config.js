@@ -16,6 +16,7 @@ export default {
         'tgri' : '#a1a1a1',
         'tred' :'#f32b2d',
         'loginback' : '#f8f8f8',
+        'logocolor':'#b5c9ff',
       },
       fontFamily:{
        kerem:[ 'Europa Grotesk Nr 2 SH' , 'bold'],
