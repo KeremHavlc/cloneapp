@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [password, setPassword] = useState("");
+  const onFinish = async (values) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+      if (res.status === 201) {
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="bg-loginback min-h-screen flex flex-col justify-between">
@@ -23,23 +42,27 @@ const RegisterPage = () => {
             className="mt-[16px] w-[400px] h-[50px] border ml-[48px] placeholder:pl-4 border-gray-300 focus:border-cyan-500 focus:outline-none"
             type="text"
             placeholder="E-posta adresi"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <div className="flex flex-row justify-between">
             <input
               className="mt-[16px] w-[195px] h-[50px] border ml-[48px] placeholder:pl-4 border-gray-300 focus:border-cyan-500 focus:outline-none"
               type="text"
               placeholder="Ad"
+              onChange={(e) => setName(e.target.value)}
             />
             <input
               className="mt-[16px] w-[195px] h-[50px] border mr-[48px] placeholder:pl-4 border-gray-300 focus:border-cyan-500 focus:outline-none"
               type="text"
               placeholder="Soyad"
+              onChange={(e) => setSurname(e.target.value)}
             />
           </div>
           <input
             className="mt-[16px] w-[400px] h-[50px] border ml-[48px] placeholder:pl-4 border-gray-300 focus:border-cyan-500 focus:outline-none"
             type="password"
             placeholder="Şifre"
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <div className="w-[400px] h-[120px] bg-loginback border ml-[48px] mt-2 p-4 rounded-md grid grid-cols-2 text-xs">
@@ -97,7 +120,10 @@ const RegisterPage = () => {
           </div>
 
           <div className="ml-[48px] mt-[20px]">
-            <button className="flex justify-center items-center border w-[400px] h-[40px] bg-mavi text-white font-bold hover:bg-blue-500 ">
+            <button
+              className="flex justify-center items-center border w-[400px] h-[40px] bg-mavi text-white font-bold hover:bg-blue-500 "
+              onClick={() => onFinish({ email, name, surname, password })}
+            >
               Hesap Aç
             </button>
           </div>

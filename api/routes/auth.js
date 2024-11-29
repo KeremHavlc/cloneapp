@@ -36,7 +36,14 @@ router.post("/login" ,async(req,res)=>{
             return res.status(400).json({message:"Yanlış Şifre!"});
         }
 
-        const token = jwt.sign({userId:user._id},process.env.SECRET_KEY ,{expiresIn:'1h'});
+        const token = jwt.sign(
+            {
+            userId:user._id,
+            name : user.name,
+            surname : user.surname,
+
+            },
+            process.env.SECRET_KEY ,{expiresIn:'1h'});
         res.status(200).json({token});
 
     } catch (error) {

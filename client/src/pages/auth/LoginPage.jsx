@@ -8,20 +8,7 @@ const LoginPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [values, setValues] = useState("");
-  const handleLogin = () => {
-    if (!email || !password) {
-      alert("Lütfen e-posta ve şifreyi doldurun!");
-      return;
-    }
-    setValues(`Email: ${email}, Password: ${password}`);
-  };
-  useEffect(() => {
-    if (values) {
-      console.log(values);
-    }
-  }, [values]);
-
+  
   const onFinish = async (values) => {
     try {
       const res = await fetch("http://localhost:5000/api/users/login", {
