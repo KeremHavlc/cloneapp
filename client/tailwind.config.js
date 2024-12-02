@@ -17,6 +17,10 @@ export default {
         'tred' :'#f32b2d',
         'loginback' : '#f8f8f8',
         'logocolor':'#b5c9ff',
+        'addgri' : '#fafafa',
+
+
+        
       },
       fontFamily:{
        kerem:[ 'Europa Grotesk Nr 2 SH' , 'bold'],

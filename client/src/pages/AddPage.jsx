@@ -3,9 +3,15 @@ import { IoExitOutline } from "react-icons/io5";
 import { Dropdown, Space } from "antd";
 import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import Categories from "../components/Categories";
 
 const AddPage = () => {
   const navigate = useNavigate();
+
+  const gohome = () => {
+    navigate("/");
+  };
+
   const getInfoFromToken = (token) => {
     if (!token) {
       console.log("Token Bulunamadi!");
@@ -127,7 +133,9 @@ const AddPage = () => {
         <div className="h-[59px] bg-gri border-b flex justify-between">
           <div className="ml-[394px] pt-[12px]">
             <div className=" flex justify-center items-center bg-sari w-[160px] h-[33px] font-bold text-xl select-none">
-              <span className="font-kerem">sahibinden.com</span>
+              <span onClick={gohome} className="font-kerem">
+                sahibinden.com
+              </span>
             </div>
           </div>
 
@@ -156,6 +164,17 @@ const AddPage = () => {
               </Dropdown>
             </Space>
           </Space>
+        </div>
+
+        <div className="bg-addgri h-screen ">
+          <div className="h-[550px] w-[994px] bg-white border ml-[460px] mt-[110px] absolute">
+            <span className="text-lg font-bold ml-[20px] right-6">
+              Adım Adım Kategori Seç
+            </span>
+            <div>
+              <Categories />
+            </div>
+          </div>
         </div>
       </div>
     </>
