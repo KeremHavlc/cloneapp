@@ -5,6 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import Categories from "../components/Categories";
 
+
 const AddPage = () => {
   const navigate = useNavigate();
 
@@ -165,17 +166,46 @@ const AddPage = () => {
             </Space>
           </Space>
         </div>
-
         <div className="bg-addgri h-screen ">
-          <div className="h-[550px] w-[994px] bg-white border ml-[460px] mt-[110px] absolute">
-            <span className="text-lg font-bold ml-[20px] right-6">
-              Adım Adım Kategori Seç
-            </span>
-            <div>
+          <div className="h-[600px] w-[1000px] bg-white border ml-[460px] mt-[110px] absolute">
+            <div className="mt-6">
+              <span className="text-lg font-bold ml-[20px] ">
+                Adım Adım Kategori Seç
+              </span>
+            </div>
+            <div className="grid grid-cols-5 mt-[50px] ml-[21px]">
               <Categories />
+            </div>
+            <div className="mt-[16px] flex items-center justify-center gap-4">
+              <div className="border-t border-gray-300 w-[450px]"></div>
+              <span className="text-black font-bold">veya</span>
+              <div className="border-t border-gray-300 w-[450px]"></div>
+            </div>
+            <div className="flex flex-col ml-[20px] mt-[20px]">
+              <span className="font-bold">
+                🔍 Kelime ile Arayarak Kategori Seç
+              </span>
+              <input
+                type="text"
+                placeholder="Lüten ilanınızı tanımlayan kelimelerle arama yapınız."
+                className="border mt-4 h-[45px] w-[400px] placeholder:pl-4 focus:border-cyan-500 focus:outline-none rounded-md"
+              />
+              <span className="mt-4  text-sm">Ör: galaxy s5</span>
             </div>
           </div>
         </div>
+        <footer className="bg-gray-100 border-t-2 py-4 text-center text-sm text-gray-600">
+          <p>
+            © 2024 sahibinden.com. Tüm hakları saklıdır. |{" "}
+            <a href="#" className="text-mavi hover:underline">
+              Gizlilik Politikası
+            </a>{" "}
+            |{" "}
+            <a href="#" className="text-mavi hover:underline">
+              Kullanım Koşulları
+            </a>
+          </p>
+        </footer>
       </div>
     </>
   );

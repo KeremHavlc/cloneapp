@@ -18,7 +18,15 @@ export default {
         'loginback' : '#f8f8f8',
         'logocolor':'#b5c9ff',
         'addgri' : '#fafafa',
-
+        'yedekparca' : '#20b9ba' , 
+        'ikinciel' : '#6c73f4',
+        'ismakineleri' : '#a665fb',
+        'ustalar' : '#499edd',
+        'özelders' : '#56b27f', 
+        'isilanlari' : '#94b849' , 
+        'hayvanlar' : '#2abbe6',
+        'yardimci' : '#f8804c',
+        'okgreen' :'#26a67c',
 
         
       },
@@ -27,6 +35,8 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+],
 }
 
