@@ -6,7 +6,7 @@ import LoginPage from "./pages/auth/LoginPage";
 import AddPage from "./pages/AddPage";
 import AddVasita from "./pages/AddVasita";
 import AddEmlak from "./pages/AddEmlak";
-import AddVasitaDetailsPage from "./pages/AddVasitaDetailsPage";
+import VasitaDetails from "./pages/VasitaDetails";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/add" element={<AddPage />} />
         <Route path="/add/vasita" element={<AddVasita />} />
         <Route path="/add/emlak" element={<AddEmlak />} />
-        <Route path="/add/vasita/details" element={<AddVasitaDetailsPage />} />
+        <Route path="/add/vasita/details" element={<VasitaDetails />} />
       </Routes>
     </BrowserRouter>
   );

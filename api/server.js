@@ -20,7 +20,11 @@ const connect = async ()=>{
 }
 /////////////////////
 const authRoutes = require("./routes/auth.js");
+const vasitaRoutes = require("./routes/vasita.js");
+/////////////////////
 app.use("/api/users",authRoutes);
+/////////////////////
+app.use("/api/vasita" , vasitaRoutes);
 /////////////////////
 
 

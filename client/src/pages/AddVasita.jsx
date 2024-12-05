@@ -1,15 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoExitOutline } from "react-icons/io5";
 import { Dropdown, Space } from "antd";
 import { IoIosArrowDown, IoIosCheckmarkCircle } from "react-icons/io";
-import Categories from "../components/Categories";
 import { useNavigate } from "react-router-dom";
 
 const AddVasita = () => {
   const navigate = useNavigate();
 
+  const onFinish = async (values) => {
+    try {
+      const res = await fetch("http://localhost:5000/api/vasita/addvasita", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      });
+
+      if (res.status === 200) {
+        navigate("/add/vasita/details");
+        localStorage.removeItem("Cars");
+        localStorage.removeItem("Models");
+        localStorage.removeItem("Vehicle");
+        localStorage.removeItem("Year");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const gohome = () => {
     navigate("/");
+    localStorage.removeItem("Cars");
+    localStorage.removeItem("Models");
+    localStorage.removeItem("Vehicle");
+    localStorage.removeItem("Year");
   };
 
   const getInfoFromToken = (token) => {
@@ -20,8 +43,8 @@ const AddVasita = () => {
     try {
       const payload = atob(token.split(".")[1]);
       const decoded = JSON.parse(payload);
-      const { name, surname } = decoded;
-      return { name, surname };
+      const { name, surname, userId } = decoded;
+      return { name, surname, userId };
     } catch (error) {
       console.log("Token decoded Edilemedi!", error);
       return null;
@@ -32,6 +55,10 @@ const AddVasita = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("Cars");
+    localStorage.removeItem("Models");
+    localStorage.removeItem("Vehicle");
+    localStorage.removeItem("Year");
     navigate("/");
   };
 
@@ -130,9 +157,25 @@ const AddVasita = () => {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedCar, setSelectedCar] = useState(null);
+  const [selectedModel, setSelectedModel] = useState(null);
+
   const [showYear, setShowYear] = useState(false);
+  const [showModel, setShowModel] = useState(false);
   const [showCar, setShowCar] = useState(false);
   const [showEnd, setShowEnd] = useState(false);
+
+  const [values, setValues] = useState({});
+
+  useEffect(() => {
+    const valuess = {
+      selectedVehicle,
+      selectedYear,
+      selectedCar,
+      selectedModel,
+      userId: userInfo.userId,
+    };
+    setValues(valuess);
+  }, [selectedVehicle, selectedYear, selectedCar, selectedModel]);
 
   const categories = [
     "Otomobil",
@@ -235,9 +278,11 @@ const AddVasita = () => {
   const handleCarClick = (car) => {
     setSelectedCar(car);
     localStorage.setItem("Cars", car);
+    setShowModel(true);
+    setSelectedModel(true);
   };
   const handleModelClick = (model) => {
-    setSelectedCar(model);
+    setSelectedModel(model);
     localStorage.setItem("Models", model);
     setShowEnd(true);
   };
@@ -289,6 +334,39 @@ const AddVasita = () => {
             {/* Araç Seçme işlemlerini yapman gereken yer olacak :D  */}
             <div className="w-full ml-5">
               <span className="text-blue-600 font-bold">Vasıta</span>
+
+              <span>
+                {selectedVehicle ? (
+                  <span>&#8594;{selectedVehicle}</span>
+                ) : (
+                  <span></span>
+                )}
+              </span>
+
+              <span>
+                {selectedYear ? (
+                  <span>&#8594;{selectedYear}</span>
+                ) : (
+                  <span></span>
+                )}
+              </span>
+
+              <span>
+                {selectedCar ? (
+                  <span>&#8594;{selectedCar}</span>
+                ) : (
+                  <span></span>
+                )}
+              </span>
+
+              <span>
+                {selectedModel ? (
+                  <span>&#8594;{selectedModel}</span>
+                ) : (
+                  <span></span>
+                )}
+              </span>
+
               <div className="flex gap-5 mt-2">
                 <ul className="bg-blue-50 border border-gray-300 rounded-md shadow-md pt-4 text-sm pl-2 max-h-[250px] w-[180px] overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-blue-100">
                   {categories.map((category) => (
@@ -338,17 +416,17 @@ const AddVasita = () => {
                   </ul>
                 )}
 
-                {selectedCar && (
+                {showModel && selectedCar && carModels[selectedCar] && (
                   <ul className="bg-blue-50 border border-gray-300 rounded-md shadow-md pt-4 text-sm pl-2 max-h-[250px] w-[180px] overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-blue-100">
-                    {selectedCar &&
-                      carModels[selectedCar] &&
-                      Array.isArray(carModels[selectedCar]) &&
+                    {Array.isArray(carModels[selectedCar]) &&
                       carModels[selectedCar].map((model) => (
                         <li
                           key={model}
                           onClick={() => handleModelClick(model)}
                           className={`hover:bg-blue-100 cursor-pointer ${
-                            selectedCar === model ? "bg-blue-200 font-bold" : ""
+                            selectedModel === model
+                              ? "bg-blue-200 font-bold"
+                              : ""
                           }`}
                         >
                           {model}
@@ -356,6 +434,7 @@ const AddVasita = () => {
                       ))}
                   </ul>
                 )}
+
                 {showEnd && (
                   <div className="w-[150px] h-[248px] border flex flex-col justify-center items-center shadow-xl cursor-pointer rounded-lg">
                     <span className="text-7xl text-okgreen">
@@ -364,7 +443,10 @@ const AddVasita = () => {
                     <span className="text-slate-950 font-extrabold text-sm ml-6">
                       Kategori seçimi tamamlanmıştır.
                     </span>
-                    <button className="border h-[40px] w-[115px] mt-2 bg-mavi text-white shadow-sm hover:bg-blue-400">
+                    <button
+                      onClick={() => onFinish(values)}
+                      className="border h-[40px] w-[115px] mt-2 bg-mavi text-white shadow-sm hover:bg-blue-400"
+                    >
                       Devam
                     </button>
                   </div>
