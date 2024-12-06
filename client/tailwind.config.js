@@ -27,6 +27,7 @@ export default {
         'hayvanlar' : '#2abbe6',
         'yardimci' : '#f8804c',
         'okgreen' :'#26a67c',
+        'detailsgreen' : '#289479',
 
         
       },
