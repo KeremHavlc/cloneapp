@@ -16,16 +16,22 @@ router.post("/addvasita" ,async(req,res)=>{
     }
 });
 
-router.get("/getvasita/:userId" ,async(req,res)=>{
+router.get("/getlastvasita/:userId", async (req, res) => {
     try {
-        const vasita = await Vasita.findById(req.params.userId);
-        if(!vasita){
-            return res.status(404).json({message : "Kullanıcı Bulunamadı !"});
+        const userId = req.params.userId;
+
+        // userId'ye göre en son eklenen kaydı getir
+        const vasita = await Vasita.findOne({ userId: userId }).sort({ _id: -1 });
+
+        if (!vasita) {
+            return res.status(404).json({ message: "Kayıt bulunamadı!" });
         }
+
         res.status(200).json(vasita);
     } catch (error) {
-        res.status(500).json({error : "Sunucu Hatası !"});
+        res.status(500).json({ error: "Sunucu hatası!" });
     }
-})
+});
+
 
 module.exports = router

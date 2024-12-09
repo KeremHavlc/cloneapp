@@ -28,7 +28,7 @@ export default {
         'yardimci' : '#f8804c',
         'okgreen' :'#26a67c',
         'detailsgreen' : '#289479',
-
+        'detailsgri' : '#f5f5f5'
         
       },
       fontFamily:{
