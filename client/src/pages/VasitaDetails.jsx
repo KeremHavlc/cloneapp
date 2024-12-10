@@ -1,4 +1,5 @@
 import DetailsHeader from "../components/DetailsHeader";
+import AddressCard from "../DetailsPageComponents/AddressCard";
 import DetailsCard from "../DetailsPageComponents/DetailsCard";
 import InfoCard from "../DetailsPageComponents/InfoCard";
 
@@ -8,7 +9,8 @@ const VasitaDetails = () => {
       <DetailsHeader />
       <div className="bg-addgri h-full">
         <InfoCard />
-        <DetailsCard/>
+        <DetailsCard />
+        <AddressCard />
       </div>
     </>
   );
