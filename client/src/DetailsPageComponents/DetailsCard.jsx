@@ -85,12 +85,12 @@ const DetailsCard = () => {
           İlan Vermenin Püf Noktaları
         </span>
       </div>
-      <div className="border bg-white w-[1050px] h-[1650px] ml-[394px] mt-2">
+      <div className="border bg-white w-[1050px] h-[1750px] ml-[394px] mt-2">
         <span className="text-gray-400 text-xs flex justify-end mt-4 mr-4">
           Kişisel verilerin korunması hakkında detaylı bilgiye&nbsp;
           <span className="text-mavi">buradan&nbsp;</span> ulaşabilirsiniz
         </span>
-
+        {/*İlan Başlığı */}
         <div className="flex flex-col ml-[50px] ">
           <span className="font-bold text-sm">
             İlan Başlığı&nbsp;<span className="text-tred">*</span>
@@ -107,6 +107,7 @@ const DetailsCard = () => {
               onClick={handleTik}
             />
             <span className="text-xs ">
+              {/*İlan Başlığı Etiketi */}
               <span className="text-yardimci font-bold">
                 {" "}
                 İLANINIZ FARKLI GÖRÜNSÜN:{" "}
@@ -115,7 +116,7 @@ const DetailsCard = () => {
             </span>
           </div>
         </div>
-
+        {/*Açıklama */}
         <div className="flex flex-col ml-[50px] mt-[35px] ">
           <span className="font-bold text-sm">
             Açıklama&nbsp;<span className="text-tred">*</span>
@@ -129,7 +130,7 @@ const DetailsCard = () => {
             />
           </div>
         </div>
-
+        {/*Fiyat */}
         <div className="ml-[50px] mt-[50px] flex flex-col">
           <span className="font-bold text-sm">
             Fiyat&nbsp;<span className="text-tred">*</span>
@@ -158,6 +159,21 @@ const DetailsCard = () => {
                   ]}
                 />
               </Space>
+            </div>
+          </div>
+          <div className="pt-4">
+            <span className="text-xs">
+              İkinci El Motorlu Kara Taşıtlarının Ticareti Hakkında Yönetmelik
+              kapsamında aracınız için belirleyeceğiniz fiyat, bu aracın Türkiye
+              distrübütörünün belirlediği sıfır araç liste fiyatının üzerinde
+              olmamalıdır.
+            </span>
+            <div className="pt-4">
+              <span className="text-xs">
+                Konunun ilgili kamu kurumları tarafından takip edildiğini,
+                Yönetmeliğe aykırı fiyat içeren ilanların sahipleri hakkında
+                idari yaptırımların uygulanabileceğini belirtmek isteriz.
+              </span>
             </div>
           </div>
         </div>

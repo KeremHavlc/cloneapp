@@ -21,12 +21,13 @@ const connect = async ()=>{
 /////////////////////
 const authRoutes = require("./routes/auth.js");
 const vasitaRoutes = require("./routes/vasita.js");
+const cityRoutes = require("./routes/city.js");
 /////////////////////
 app.use("/api/users",authRoutes);
 /////////////////////
 app.use("/api/vasita" , vasitaRoutes);
 /////////////////////
-
+app.use("/api/city" , cityRoutes);
 
 app.get("/" ,(req,res)=>{
     res.send("Hello World => Author:Kerem Havlucu!");
