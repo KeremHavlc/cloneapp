@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import damageArea from "../images/damage-area.png";
 import DamageModal from "./DamageModal";
+import { AiFillFileAdd } from "react-icons/ai";
 
 const PCEInformation = () => {
   const [onTampon, setOnTampon] = useState(false);
@@ -32,21 +33,23 @@ const PCEInformation = () => {
     bagaj: { type: "", details: "" },
     arkaTampon: { type: "", details: "" },
   });
-
-  const [onTamponInfo, setOnTamponInfo] = useState("");
-  const [kaputInfo, setKaputInfo] = useState("");
-  const [tavanInfo, setTavanInfo] = useState("");
-  const [sagOnCamurlukInfo, setSagOnCamurlukInfo] = useState("");
-  const [sagOnKapiInfo, setSagOnKapiInfo] = useState("");
-  const [sagArkaKapiInfo, setSagArkaKapiInfo] = useState("");
-  const [sagArkaCamurlukInfo, setSagArkaCamurlukInfo] = useState("");
-  const [solOnCamurlukInfo, setSolOnCamurlukInfo] = useState("");
-  const [solOnKapiInfo, setSolOnKapiInfo] = useState("");
-  const [solArkaKapiInfo, setSolArkaKapiInfo] = useState("");
-  const [solArkaCamurlukInfo, setSolArkaCamurlukInfo] = useState("");
-  const [bagajInfo, setBagajInfo] = useState("");
-  const [arkaTamponInfo, setArkaTamponInfo] = useState("");
-
+  const [isAllOriginal, setIsAllOriginal] = useState(false);
+  const handleSetAllOriginal = () => {
+    setIsAllOriginal((prevState) => {
+      const newState = !prevState; // Eğer zaten seçiliyse kaldır, değilse işaretle
+      if (newState) {
+        // Tüm parçaların type değerini "orijinal" yap
+        setDamageInfo((prevState) => {
+          const updatedInfo = {};
+          Object.keys(prevState).forEach((key) => {
+            updatedInfo[key] = { ...prevState[key], type: "orijinal" };
+          });
+          return updatedInfo;
+        });
+      }
+      return newState;
+    });
+  };
   const handleDamageSelect = (area, type, details) => {
     setDamageInfo((prevState) => ({
       ...prevState,
@@ -55,18 +58,19 @@ const PCEInformation = () => {
   };
   useEffect(() => {
     console.log(damageInfo);
-    console.log(onTamponInfo);
   }, [damageInfo]);
 
   const handleRadioSelect = (event) => {
-    const selectedValue = event.target.value;
-    setOnTamponInfo(selectedValue);
+    const { name, value } = event.target; // event'ten name (parça) ve value'yu al
+    setDamageInfo((prevState) => ({
+      ...prevState,
+      [name]: {
+        ...prevState[name],
+        type: value,
+      },
+    }));
+    setIsAllOriginal(false); // Tüm orijinal seçimi kaldır
   };
-  useEffect(() => {
-    if (onTamponInfo) {
-      console.log("Seçilen Değer:", onTamponInfo);
-    }
-  }, [onTamponInfo]);
 
   const divRef = useRef(null);
 
@@ -100,6 +104,54 @@ const PCEInformation = () => {
     setPartState(true);
   };
 
+  useEffect(() => {
+    console.log(damageInfo); // Damage info state log for debugging
+  }, [damageInfo]);
+
+  const [file, setFile] = useState(null); // Yüklenen dosya state'i
+  const [error, setError] = useState(""); // Hata mesajı state'i
+
+  const maxFileSize = 25 * 1024 * 1024; // 25 MB
+
+  const handleFileChange = (e) => {
+    const uploadedFile = e.target.files[0];
+    validateFile(uploadedFile);
+  };
+
+  const validateFile = (uploadedFile) => {
+    if (uploadedFile) {
+      // Format kontrolü
+      if (uploadedFile.type !== "application/pdf") {
+        setError("Yalnızca PDF dosyaları yükleyebilirsiniz.");
+        setFile(null);
+        return;
+      }
+
+      // Boyut kontrolü
+      if (uploadedFile.size > maxFileSize) {
+        setError("Dosya boyutu en fazla 25 MB olmalıdır.");
+        setFile(null);
+        return;
+      }
+
+      setError("");
+      setFile(uploadedFile);
+    }
+  };
+  useEffect(() => {
+    console.log(file);
+  }, [file]);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.files[0];
+    validateFile(droppedFile);
+  };
+
   return (
     <>
       <div className="ml-[394px] pt-[120px] ">
@@ -126,167 +178,82 @@ const PCEInformation = () => {
               {/* HASAR SEÇME BÖLÜMÜ 2  */}
               <div className="w-[550px] h-[500px] ml-[20px]">
                 <div className="flex ml-[150px] mt-[20px] gap-8">
-                  <span className="text-orjinal text-sm font-bold">
+                  <span className="text-orjinal text-sm font-bold w-20 text-center">
                     Orijinal
                   </span>
-                  <span className="text-lokal text-sm font-bold">
+                  <span className="text-lokal text-sm font-bold w-20 text-center">
                     Lokal Boyalı
                   </span>
-                  <span className="text-boyali text-sm font-bold">Boyalı</span>
-                  <span className="text-degisen text-sm font-bold ml-4">
+                  <span className="text-boyali text-sm font-bold w-20 text-center">
+                    Boyalı
+                  </span>
+                  <span className="text-degisen text-sm font-bold w-20 text-center">
                     Değişen
                   </span>
                 </div>
 
-                <div className="flex flex-col gap-2 text-base mt-2 font-bold">
-                  <span className="flex items-center">
-                    Ön Tampon
-                    <span className="flex gap-[85px] ml-[72px]">
-                      <input
-                        type="radio"
-                        name="on-tampon"
-                        value="on-tampon-orijinal"
-                        onChange={handleRadioSelect}
-                      />
-                      <input
-                        type="radio"
-                        name="on-tampon"
-                        value="on-tampon-lokalboyali"
-                        onChange={handleRadioSelect}
-                      />
-                      <input
-                        type="radio"
-                        name="on-tampon"
-                        value="on-tampon-boyali"
-                        onChange={handleRadioSelect}
-                      />
-                      <input
-                        type="radio"
-                        name="on-tampon"
-                        value="on-tampon-değişen"
-                        onChange={handleRadioSelect}
-                      />
+                <div className="flex flex-col gap-2 text-sm mt-2 font-semibold">
+                  {[
+                    { label: "Ön Tampon", key: "onTampon" },
+                    { label: "Motor Kaputu", key: "kaput" },
+                    { label: "Tavan", key: "tavan" },
+                    { label: "Sağ Ön Çamurluk", key: "sagOnCamurluk" },
+                    { label: "Sağ Ön Kapı", key: "sagOnKapi" },
+                    { label: "Sağ Arka Kapı", key: "sagArkaKapi" },
+                    { label: "Sağ Arka Çamurluk", key: "sagArkaCamurluk" },
+                    { label: "Sol Ön Çamurluk", key: "solOnCamurluk" },
+                    { label: "Sol Ön Kapı", key: "solOnKapi" },
+                    { label: "Sol Arka Kapı", key: "solArkaKapi" },
+                    { label: "Sol Arka Çamurluk", key: "solArkaCamurluk" },
+                    { label: "Bagaj Kapağı", key: "bagaj" },
+                    { label: "Arka Tampon", key: "arkaTampon" },
+                  ].map(({ label, key }) => (
+                    <span className="flex items-center" key={key}>
+                      {label}
+                      <span className="flex gap-[85px] ml-auto mr-[50px]">
+                        <input
+                          type="radio"
+                          name={key}
+                          value="orijinal"
+                          checked={damageInfo[key].type === "orijinal"}
+                          onChange={handleRadioSelect}
+                        />
+                        <input
+                          type="radio"
+                          name={key}
+                          value="lokalboyali"
+                          checked={damageInfo[key].type === "lokalboyali"}
+                          onChange={handleRadioSelect}
+                        />
+                        <input
+                          type="radio"
+                          name={key}
+                          value="boyali"
+                          checked={damageInfo[key].type === "boyali"}
+                          onChange={handleRadioSelect}
+                        />
+                        <input
+                          type="radio"
+                          name={key}
+                          value="degisen"
+                          checked={damageInfo[key].type === "degisen"}
+                          onChange={handleRadioSelect}
+                        />
+                      </span>
                     </span>
-                  </span>
-
-                  <span className="flex items-center">
-                    Motor Kaputu
-                    <span className="flex  gap-[85px] ml-[54px]">
-                      <input type="radio" name="motor-kaputu" />
-                      <input type="radio" name="motor-kaputu" />
-                      <input type="radio" name="motor-kaputu" />
-                      <input type="radio" name="motor-kaputu" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Tavan
-                    <span className="flex  gap-[85px] ml-[117px]">
-                      <input type="radio" name="tavan" />
-                      <input type="radio" name="tavan" />
-                      <input type="radio" name="tavan" />
-                      <input type="radio" name="tavan" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center">
-                    Sağ Ön Çamurluk
-                    <span className="flex  gap-[85px] ml-[28px]">
-                      <input type="radio" name="sag-on-camurluk" />
-                      <input type="radio" name="sag-on-camurluk" />
-                      <input type="radio" name="sag-on-camurluk" />
-                      <input type="radio" name="sag-on-camurluk" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center">
-                    Sağ Ön Kapı
-                    <span className="flex  gap-[85px] ml-[68px]">
-                      <input type="radio" name="sag-on-kapi" />
-                      <input type="radio" name="sag-on-kapi" />
-                      <input type="radio" name="sag-on-kapi" />
-                      <input type="radio" name="sag-on-kapi" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Sağ Arka Kapı
-                    <span className="flex  gap-[85px] ml-[55px]">
-                      <input type="radio" name="sag-arka-kapi" />
-                      <input type="radio" name="sag-arka-kapi" />
-                      <input type="radio" name="sag-arka-kapi" />
-                      <input type="radio" name="sag-arka-kapi" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Sağ Arka Çamurluk
-                    <span className="flex  gap-[85px] ml-[17px]">
-                      <input type="radio" name="sag-arka-camurluk" />
-                      <input type="radio" name="sag-arka-camurluk" />
-                      <input type="radio" name="sag-arka-camurluk" />
-                      <input type="radio" name="sag-arka-camurluk" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Sol Ön Çamurluk
-                    <span className="flex  gap-[85px] ml-[35px]">
-                      <input type="radio" name="sol-on-camurluk" />
-                      <input type="radio" name="sol-on-camurluk" />
-                      <input type="radio" name="sol-on-camurluk" />
-                      <input type="radio" name="sol-on-camurluk" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Sol Ön Kapı
-                    <span className="flex  gap-[85px] ml-[74px]">
-                      <input type="radio" name="sol-on-kapi" />
-                      <input type="radio" name="sol-on-kapi" />
-                      <input type="radio" name="sol-on-kapi" />
-                      <input type="radio" name="sol-on-kapi" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Sol Arka Kapı
-                    <span className="flex  gap-[85px] ml-[61px]">
-                      <input type="radio" name="sol-arka-kapi" />
-                      <input type="radio" name="sol-arka-kapi" />
-                      <input type="radio" name="sol-arka-kapi" />
-                      <input type="radio" name="sol-arka-kapi" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Sol Arka Çamurluk
-                    <span className="flex  gap-[85px] ml-[23px]">
-                      <input type="radio" name="sol-arka-camurluk" />
-                      <input type="radio" name="sol-arka-camurluk" />
-                      <input type="radio" name="sol-arka-camurluk" />
-                      <input type="radio" name="sol-arka-camurluk" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Bagaj Kapağı
-                    <span className="flex  gap-[85px] ml-[66px]">
-                      <input type="radio" name="bagaj-kapagi" />
-                      <input type="radio" name="bagaj-kapagi" />
-                      <input type="radio" name="bagaj-kapagi" />
-                      <input type="radio" name="bagaj-kapagi" />
-                    </span>
-                  </span>
-
-                  <span className="flex items-center ">
-                    Arka Tampon
-                    <span className="flex  gap-[85px] ml-[64px]">
-                      <input type="radio" name="arka-tampon" />
-                      <input type="radio" name="arka-tampon" />
-                      <input type="radio" name="arka-tampon" />
-                      <input type="radio" name="arka-tampon" />
-                    </span>
+                  ))}
+                </div>
+                <div className="select-none">
+                  <input
+                    type="radio"
+                    name="orijinal"
+                    value="orijinal"
+                    className="mt-[45px]"
+                    onChange={handleSetAllOriginal}
+                    checked={isAllOriginal}
+                  />
+                  <span className="ml-4 text-sm font-semibold">
+                    Aracımın boyanan ya da değişen parçası yok.
                   </span>
                 </div>
               </div>
@@ -604,6 +571,82 @@ const PCEInformation = () => {
             )}
           </div>
         </div>
+        <div className="ml-[50px] mt-4">
+          <span className="font-bold">Ekspertiz Raporu</span>
+          <div className="w-[950px] h-[150px] border mt-4 flex flex-row">
+            <div
+              className="border-dashed border-2 border-gray-300 mt-8 ml-8 text-center w-[250px] h-[76px] rounded-none"
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+            >
+              <label
+                htmlFor="fileInput"
+                className="cursor-pointer flex flex-row pt-3"
+              >
+                <AiFillFileAdd className="text-mavi text-5xl ml-4" />
+                <div className="flex flex-col">
+                  <span className="text-mavi font-medium">Dosya Ekle</span>
+                  <span className="text-gray-500 text-sm mt-0 ml-9">
+                    ya da sürükle bırak
+                  </span>
+                </div>
+              </label>
+              <input
+                id="fileInput"
+                type="file"
+                accept="application/pdf"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+            </div>
+            {/* Yine de div düzeni */}
+            <div className="flex flex-col ml-6 pb-20 w-[590px]">
+              <span className="text-xs text-gray-700 mt-9">
+                Aracınıza ait{" "}
+                <span className="text-xs font-bold text-black">
+                  sahibinden.com anlaşmalı ekspertiz firmaları tarafından
+                  yapılan
+                </span>{" "}
+                ekspertiz raporu varsa seçebilir veya bilgisayarınızdan dosya
+                ekleyebilirsiniz.
+              </span>
+              <span className="text-xs text-gray-700 mt-4">
+                Ekleyeceğiniz ekspertiz dosyası{" "}
+                <span className="text-xs font-bold text-black">pdf</span>{" "}
+                formatında olmalıdır. Dosyanın boyutu en fazla{" "}
+                <span className="text-xs font-bold text-black">25 MB</span>{" "}
+                olabilir.
+              </span>
+            </div>
+
+            {file && (
+              <div className="mt-4 text-sm ml-8 text-green-600">
+                {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+                yüklendi.
+              </div>
+            )}
+            {error && <div className="mt-4 text-sm text-red-500">{error}</div>}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col">
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
+        <span>kerem</span>
       </div>
     </>
   );
