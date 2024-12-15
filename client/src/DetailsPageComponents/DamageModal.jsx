@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 
-const DamageModal = () => {
-  // State for selected radio button
+const DamageModal = ({ onDamageSelect, area }) => {
   const [selectedDamage, setSelectedDamage] = useState("");
-
-  // State for select dropdown value
   const [details, setDetails] = useState("seçiniz");
 
   const handleRadioChange = (e) => {
-    setSelectedDamage(e.target.value); // Update selected damage type
+    setSelectedDamage(e.target.value);
   };
 
   const handleSelectChange = (e) => {
-    setDetails(e.target.value); // Update the selected detail
+    setDetails(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    if (selectedDamage && details !== "seçiniz") {
+      // selectedDamage ve details doğru şekilde seçilmişse
+      console.log(
+        `Area: ${area}, Damage Type: ${selectedDamage}, Details: ${details}`
+      );
+      onDamageSelect(area, selectedDamage, details);
+    } else {
+      alert("Lütfen hasar türünü ve detayını seçiniz.");
+    }
   };
 
   return (
@@ -86,6 +95,13 @@ const DamageModal = () => {
           <option value="yırtık">Yırtık</option>
         </select>
       </div>
+
+      <button
+        onClick={handleSubmit}
+        className="mt-3 p-2 bg-blue-500 text-white rounded"
+      >
+        Kaydet
+      </button>
     </>
   );
 };

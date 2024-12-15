@@ -17,6 +17,57 @@ const PCEInformation = () => {
   const [bagaj, setBagaj] = useState(false);
   const [arkaTampon, setArkaTampon] = useState(false);
 
+  const [damageInfo, setDamageInfo] = useState({
+    onTampon: { type: "", details: "" },
+    kaput: { type: "", details: "" },
+    tavan: { type: "", details: "" },
+    sagOnCamurluk: { type: "", details: "" },
+    sagOnKapi: { type: "", details: "" },
+    sagArkaKapi: { type: "", details: "" },
+    sagArkaCamurluk: { type: "", details: "" },
+    solOnCamurluk: { type: "", details: "" },
+    solOnKapi: { type: "", details: "" },
+    solArkaKapi: { type: "", details: "" },
+    solArkaCamurluk: { type: "", details: "" },
+    bagaj: { type: "", details: "" },
+    arkaTampon: { type: "", details: "" },
+  });
+
+  const [onTamponInfo, setOnTamponInfo] = useState("");
+  const [kaputInfo, setKaputInfo] = useState("");
+  const [tavanInfo, setTavanInfo] = useState("");
+  const [sagOnCamurlukInfo, setSagOnCamurlukInfo] = useState("");
+  const [sagOnKapiInfo, setSagOnKapiInfo] = useState("");
+  const [sagArkaKapiInfo, setSagArkaKapiInfo] = useState("");
+  const [sagArkaCamurlukInfo, setSagArkaCamurlukInfo] = useState("");
+  const [solOnCamurlukInfo, setSolOnCamurlukInfo] = useState("");
+  const [solOnKapiInfo, setSolOnKapiInfo] = useState("");
+  const [solArkaKapiInfo, setSolArkaKapiInfo] = useState("");
+  const [solArkaCamurlukInfo, setSolArkaCamurlukInfo] = useState("");
+  const [bagajInfo, setBagajInfo] = useState("");
+  const [arkaTamponInfo, setArkaTamponInfo] = useState("");
+
+  const handleDamageSelect = (area, type, details) => {
+    setDamageInfo((prevState) => ({
+      ...prevState,
+      [area]: { type, details },
+    }));
+  };
+  useEffect(() => {
+    console.log(damageInfo);
+    console.log(onTamponInfo);
+  }, [damageInfo]);
+
+  const handleRadioSelect = (event) => {
+    const selectedValue = event.target.value;
+    setOnTamponInfo(selectedValue);
+  };
+  useEffect(() => {
+    if (onTamponInfo) {
+      console.log("Seçilen Değer:", onTamponInfo);
+    }
+  }, [onTamponInfo]);
+
   const divRef = useRef(null);
 
   useEffect(() => {
@@ -62,14 +113,184 @@ const PCEInformation = () => {
           </span>
 
           {/* Hasar Seçme Bölümü */}
-          <div className="w-[950px] h-[560px] border ml-[50px] mt-4 relative">
+          <div className="w-[950px] h-[560px] border   ml-[50px] mt-4 relative">
             {/* Görsel */}
-            <img
-              src={damageArea}
-              alt="Workplace"
-              useMap="#workmap"
-              className="mt-[25px] ml-8 select-none"
-            />
+            <div className="flex ml-4 mt-[25px]">
+              <img
+                src={damageArea}
+                alt="Workplace"
+                useMap="#workmap"
+                className="select-none"
+              />
+
+              {/* HASAR SEÇME BÖLÜMÜ 2  */}
+              <div className="w-[550px] h-[500px] ml-[20px]">
+                <div className="flex ml-[150px] mt-[20px] gap-8">
+                  <span className="text-orjinal text-sm font-bold">
+                    Orijinal
+                  </span>
+                  <span className="text-lokal text-sm font-bold">
+                    Lokal Boyalı
+                  </span>
+                  <span className="text-boyali text-sm font-bold">Boyalı</span>
+                  <span className="text-degisen text-sm font-bold ml-4">
+                    Değişen
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-2 text-base mt-2 font-bold">
+                  <span className="flex items-center">
+                    Ön Tampon
+                    <span className="flex gap-[85px] ml-[72px]">
+                      <input
+                        type="radio"
+                        name="on-tampon"
+                        value="on-tampon-orijinal"
+                        onChange={handleRadioSelect}
+                      />
+                      <input
+                        type="radio"
+                        name="on-tampon"
+                        value="on-tampon-lokalboyali"
+                        onChange={handleRadioSelect}
+                      />
+                      <input
+                        type="radio"
+                        name="on-tampon"
+                        value="on-tampon-boyali"
+                        onChange={handleRadioSelect}
+                      />
+                      <input
+                        type="radio"
+                        name="on-tampon"
+                        value="on-tampon-değişen"
+                        onChange={handleRadioSelect}
+                      />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center">
+                    Motor Kaputu
+                    <span className="flex  gap-[85px] ml-[54px]">
+                      <input type="radio" name="motor-kaputu" />
+                      <input type="radio" name="motor-kaputu" />
+                      <input type="radio" name="motor-kaputu" />
+                      <input type="radio" name="motor-kaputu" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Tavan
+                    <span className="flex  gap-[85px] ml-[117px]">
+                      <input type="radio" name="tavan" />
+                      <input type="radio" name="tavan" />
+                      <input type="radio" name="tavan" />
+                      <input type="radio" name="tavan" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center">
+                    Sağ Ön Çamurluk
+                    <span className="flex  gap-[85px] ml-[28px]">
+                      <input type="radio" name="sag-on-camurluk" />
+                      <input type="radio" name="sag-on-camurluk" />
+                      <input type="radio" name="sag-on-camurluk" />
+                      <input type="radio" name="sag-on-camurluk" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center">
+                    Sağ Ön Kapı
+                    <span className="flex  gap-[85px] ml-[68px]">
+                      <input type="radio" name="sag-on-kapi" />
+                      <input type="radio" name="sag-on-kapi" />
+                      <input type="radio" name="sag-on-kapi" />
+                      <input type="radio" name="sag-on-kapi" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Sağ Arka Kapı
+                    <span className="flex  gap-[85px] ml-[55px]">
+                      <input type="radio" name="sag-arka-kapi" />
+                      <input type="radio" name="sag-arka-kapi" />
+                      <input type="radio" name="sag-arka-kapi" />
+                      <input type="radio" name="sag-arka-kapi" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Sağ Arka Çamurluk
+                    <span className="flex  gap-[85px] ml-[17px]">
+                      <input type="radio" name="sag-arka-camurluk" />
+                      <input type="radio" name="sag-arka-camurluk" />
+                      <input type="radio" name="sag-arka-camurluk" />
+                      <input type="radio" name="sag-arka-camurluk" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Sol Ön Çamurluk
+                    <span className="flex  gap-[85px] ml-[35px]">
+                      <input type="radio" name="sol-on-camurluk" />
+                      <input type="radio" name="sol-on-camurluk" />
+                      <input type="radio" name="sol-on-camurluk" />
+                      <input type="radio" name="sol-on-camurluk" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Sol Ön Kapı
+                    <span className="flex  gap-[85px] ml-[74px]">
+                      <input type="radio" name="sol-on-kapi" />
+                      <input type="radio" name="sol-on-kapi" />
+                      <input type="radio" name="sol-on-kapi" />
+                      <input type="radio" name="sol-on-kapi" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Sol Arka Kapı
+                    <span className="flex  gap-[85px] ml-[61px]">
+                      <input type="radio" name="sol-arka-kapi" />
+                      <input type="radio" name="sol-arka-kapi" />
+                      <input type="radio" name="sol-arka-kapi" />
+                      <input type="radio" name="sol-arka-kapi" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Sol Arka Çamurluk
+                    <span className="flex  gap-[85px] ml-[23px]">
+                      <input type="radio" name="sol-arka-camurluk" />
+                      <input type="radio" name="sol-arka-camurluk" />
+                      <input type="radio" name="sol-arka-camurluk" />
+                      <input type="radio" name="sol-arka-camurluk" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Bagaj Kapağı
+                    <span className="flex  gap-[85px] ml-[66px]">
+                      <input type="radio" name="bagaj-kapagi" />
+                      <input type="radio" name="bagaj-kapagi" />
+                      <input type="radio" name="bagaj-kapagi" />
+                      <input type="radio" name="bagaj-kapagi" />
+                    </span>
+                  </span>
+
+                  <span className="flex items-center ">
+                    Arka Tampon
+                    <span className="flex  gap-[85px] ml-[64px]">
+                      <input type="radio" name="arka-tampon" />
+                      <input type="radio" name="arka-tampon" />
+                      <input type="radio" name="arka-tampon" />
+                      <input type="radio" name="arka-tampon" />
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
             <map name="workmap">
               {/* Bölgelere Tıklama Alanları */}
               <area
@@ -151,7 +372,6 @@ const PCEInformation = () => {
                 onClick={() => handleMouseEnter(setArkaTampon)}
               />
             </map>
-
             {/* Hover Alanları */}
             {onTampon && (
               <div
@@ -163,7 +383,10 @@ const PCEInformation = () => {
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Ön Tampon</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="onTampon"
+                  />
                 </div>
               </div>
             )}
@@ -177,7 +400,10 @@ const PCEInformation = () => {
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Kaput</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="kaput"
+                  />
                 </div>
               </div>
             )}
@@ -191,7 +417,10 @@ const PCEInformation = () => {
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Tavan</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="tavan"
+                  />
                 </div>
               </div>
             )}
@@ -207,7 +436,10 @@ const PCEInformation = () => {
                   <span className="font-bold text-sm ml-1">
                     Sağ Ön Çamurluk
                   </span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="sagOnCamurluk"
+                  />
                 </div>
               </div>
             )}
@@ -221,7 +453,10 @@ const PCEInformation = () => {
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Sağ Ön Kapı</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="sagOnKapi"
+                  />
                 </div>
               </div>
             )}
@@ -235,7 +470,10 @@ const PCEInformation = () => {
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Sağ Arka Kapı</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="sagArkaKapi"
+                  />
                 </div>
               </div>
             )}
@@ -251,7 +489,10 @@ const PCEInformation = () => {
                   <span className="font-bold text-sm ml-1">
                     Sağ Arka Çamurluk
                   </span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="sagArkaCamurluk"
+                  />
                 </div>
               </div>
             )}
@@ -267,42 +508,51 @@ const PCEInformation = () => {
                   <span className="font-bold text-sm ml-1">
                     Sol Ön Çamurluk
                   </span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="solOnCamurluk"
+                  />
                 </div>
               </div>
             )}
             {solOnKapi && (
               <div
                 ref={divRef}
-                className="absolute top-[240px] left-[40px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
+                className="absolute top-[240px] left-[20px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
                 style={{
                   transform: "translateX(8px) translateY(25px)",
                 }}
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Sol Ön Kapı</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="solOnKapi"
+                  />
                 </div>
               </div>
             )}
             {solArkaKapi && (
               <div
                 ref={divRef}
-                className="absolute top-[320px] left-[40px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
+                className="absolute top-[320px] left-[20px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
                 style={{
                   transform: "translateX(8px) translateY(25px)",
                 }}
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Sol Arka Kapı</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="solArkaKapi"
+                  />
                 </div>
               </div>
             )}
             {solArkaCamurluk && (
               <div
                 ref={divRef}
-                className="absolute top-[400px] left-[30px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
+                className="absolute top-[400px] left-[20px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
                 style={{
                   transform: "translateX(8px) translateY(25px)",
                 }}
@@ -311,35 +561,44 @@ const PCEInformation = () => {
                   <span className="font-bold text-sm ml-1">
                     Sol Arka Çamurluk
                   </span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="solArkaCamurluk"
+                  />
                 </div>
               </div>
             )}
             {bagaj && (
               <div
                 ref={divRef}
-                className="absolute top-[400px] left-[160px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
+                className="absolute top-[400px] left-[150px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
                 style={{
                   transform: "translateX(8px) translateY(25px)",
                 }}
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Bagaj</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="bagaj"
+                  />
                 </div>
               </div>
             )}
             {arkaTampon && (
               <div
                 ref={divRef}
-                className="absolute top-[440px] left-[160px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
+                className="absolute top-[430px] left-[150px] w-[450px] h-[200px] pointer-events-auto bg-white border z-10"
                 style={{
                   transform: "translateX(8px) translateY(25px)",
                 }}
               >
                 <div className="pt-4 ml-1 select-none">
                   <span className="font-bold text-sm ml-1">Arka Tampon</span>
-                  <DamageModal />
+                  <DamageModal
+                    onDamageSelect={handleDamageSelect}
+                    area="arkaTampon"
+                  />
                 </div>
               </div>
             )}
