@@ -110,7 +110,7 @@ const AddressCard = () => {
   return (
     <>
       <div>
-        <div className="ml-[394px] pt-[120px] ">
+        <div className="ml-[394px] pt-[50px] ">
           <span className="font-bold">Adres Bilgileri</span>
           <span className="ml-[897px] text-sm text-mavi hover:underline cursor-pointer">
             Türkiye

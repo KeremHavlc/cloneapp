@@ -154,7 +154,7 @@ const PCEInformation = () => {
 
   return (
     <>
-      <div className="ml-[394px] pt-[120px] ">
+      <div className="ml-[394px] pt-[50px] ">
         <span className="font-bold">Boya, Değişen ve Ekspertiz Bilgisi</span>
       </div>
 
@@ -181,10 +181,10 @@ const PCEInformation = () => {
                   <span className="text-orjinal text-sm font-bold w-20 text-center">
                     Orijinal
                   </span>
-                  <span className="text-lokal text-sm font-bold w-20 text-center">
+                  <span className="text-lokal text-sm font-bold w-auto text-center whitespace-nowrap">
                     Lokal Boyalı
                   </span>
-                  <span className="text-boyali text-sm font-bold w-20 text-center">
+                  <span className="text-boyali text-sm font-bold w-10 text-center">
                     Boyalı
                   </span>
                   <span className="text-degisen text-sm font-bold w-20 text-center">
@@ -628,25 +628,6 @@ const PCEInformation = () => {
             {error && <div className="mt-4 text-sm text-red-500">{error}</div>}
           </div>
         </div>
-      </div>
-
-      <div className="flex flex-col">
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
       </div>
     </>
   );
