@@ -32,8 +32,10 @@ export default {
         'orjinal' : '#999999',
         'lokal' : '#fe9546',
         'boyali' : '#4083c9',
-        'degisen' : '#ff5e39'
-
+        'degisen' : '#ff5e39',
+        'vitrinyesil' : '#2c9470',
+        'bgbgbg' : '#f9f9f9',
+        'mavikoyu2':'#3670ab',
         
       },
       fontFamily:{
