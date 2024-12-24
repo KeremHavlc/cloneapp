@@ -1,32 +1,11 @@
 import React, { useEffect, useState } from "react";
-
-const AddressCard = () => {
+const AddressCard = ({ setCity, setDistrict, setNeighborhood }) => {
   const [selectedCity, setSelectedCity] = useState(null); // Seçilen şehir
   const [cities, setCities] = useState([]); // Şehir verisi
   const [selectedDistrict, setSelectedDistrict] = useState(null); // Seçilen ilçe
   const [districts, setDistricts] = useState([]); // İlçe verisi
   const [selectedNeighborhood, setSelectedNeighborhood] = useState(null); // Seçilen Mahalle
   const [neighborhoods, setNeighborhoods] = useState([]); // Mahalle Verisi
-
-  const [adres, setAdres] = useState(""); //Genel Adres Bilgisi
-
-  useEffect(() => {
-    let fullAdres = "";
-    if (selectedCity) {
-      fullAdres += selectedCity.name;
-    }
-
-    if (selectedDistrict) {
-      fullAdres += `, ${selectedDistrict.name}`;
-    }
-
-    if (selectedNeighborhood) {
-      fullAdres += `, ${selectedNeighborhood.name}`;
-    }
-
-    setAdres(fullAdres);
-    console.log("Güncellenmiş Adres: ", fullAdres);
-  }, [selectedCity, selectedDistrict, selectedNeighborhood]);
 
   const [open, setOpen] = useState(false); // Mahalle arama açma/kapama
   const handleOpen = () => setOpen(true);
@@ -106,6 +85,19 @@ const AddressCard = () => {
     const neighborhood = neighborhoods.find((n) => n.name === value);
     setSelectedNeighborhood(neighborhood || null);
   };
+
+  useEffect(() => {
+    if (selectedCity) setCity(selectedCity.name); // _id yerine name göndereceğiz
+    if (selectedDistrict) setDistrict(selectedDistrict.name); // _id yerine name göndereceğiz
+    if (selectedNeighborhood) setNeighborhood(selectedNeighborhood.name); // _id yerine name göndereceğiz
+  }, [
+    selectedCity,
+    selectedDistrict,
+    selectedNeighborhood,
+    setCity,
+    setDistrict,
+    setNeighborhood,
+  ]);
 
   return (
     <>

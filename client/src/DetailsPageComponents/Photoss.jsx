@@ -1,10 +1,36 @@
 import { MdPhotoCamera } from "react-icons/md";
-import { Col, Progress, Row, Upload, Image } from "antd";
+import { Progress, Upload, Image } from "antd";
 import React, { useState, useRef, useEffect } from "react";
 
-const Photoss = () => {
+const Photoss = ({ setPhotoData }) => {
   const [fileList, setFileList] = useState([]);
+  const [base64Images, setBase64Images] = useState([]);
+
   const maxFiles = 15;
+  useEffect(() => {
+    // fileList güncellenince Base64 verileri set et
+    const convertToBase64 = async () => {
+      const base64Array = [];
+      for (let file of fileList) {
+        const base64 = await convertFileToBase64(file.originFileObj);
+        base64Array.push(base64);
+      }
+      setBase64Images(base64Array);
+      localStorage.setItem("uploadedImage", base64Array);
+      setPhotoData(localStorage.getItem("uploadedImage")); // Base64 verisini parent'a gönder
+    };
+    convertToBase64();
+  }, [fileList]);
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result); // Base64 string döner
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file); // Base64 formatında okuma
+    });
+  };
 
   const handleChange = ({ fileList }) => {
     // Maksimum dosya kontrolü
@@ -12,11 +38,6 @@ const Photoss = () => {
       setFileList(fileList);
     }
   };
-  useEffect(() => {
-    fileList.forEach((file, index) => {
-      console.log(`${index + 1}. Fotoğraf: ${file.name}`);
-    });
-  }, [fileList]);
 
   const dragPerson = useRef(0);
   const draggedOverPerson = useRef(0);

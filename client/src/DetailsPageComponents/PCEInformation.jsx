@@ -3,7 +3,7 @@ import damageArea from "../images/damage-area.png";
 import DamageModal from "./DamageModal";
 import { AiFillFileAdd } from "react-icons/ai";
 
-const PCEInformation = () => {
+const PCEInformation = ({ setPceInformationCardData, setEkspertizData }) => {
   const [onTampon, setOnTampon] = useState(false);
   const [kaput, setKaput] = useState(false);
   const [tavan, setTavan] = useState(false);
@@ -33,6 +33,11 @@ const PCEInformation = () => {
     bagaj: { type: "", details: "" },
     arkaTampon: { type: "", details: "" },
   });
+  useEffect(() => {
+    if (damageInfo) {
+      setPceInformationCardData(damageInfo);
+    }
+  }, [damageInfo]);
   const [isAllOriginal, setIsAllOriginal] = useState(false);
   const handleSetAllOriginal = () => {
     setIsAllOriginal((prevState) => {
@@ -56,9 +61,6 @@ const PCEInformation = () => {
       [area]: { type, details },
     }));
   };
-  useEffect(() => {
-    console.log(damageInfo);
-  }, [damageInfo]);
 
   const handleRadioSelect = (event) => {
     const { name, value } = event.target; // event'ten name (parça) ve value'yu al
@@ -104,10 +106,6 @@ const PCEInformation = () => {
     setPartState(true);
   };
 
-  useEffect(() => {
-    console.log(damageInfo); // Damage info state log for debugging
-  }, [damageInfo]);
-
   const [file, setFile] = useState(null); // Yüklenen dosya state'i
   const [error, setError] = useState(""); // Hata mesajı state'i
 
@@ -117,6 +115,9 @@ const PCEInformation = () => {
     const uploadedFile = e.target.files[0];
     validateFile(uploadedFile);
   };
+  useEffect(() => {
+    setEkspertizData(file);
+  }, [file]);
 
   const validateFile = (uploadedFile) => {
     if (uploadedFile) {
@@ -135,12 +136,10 @@ const PCEInformation = () => {
       }
 
       setError("");
-      setFile(uploadedFile);
+      setFile(uploadedFile); // Geçerli dosya state'ine kaydedildi
+      convertToBase64(uploadedFile); // Dosyayı Base64'e çevirip saklayalım
     }
   };
-  useEffect(() => {
-    console.log(file);
-  }, [file]);
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -150,6 +149,20 @@ const PCEInformation = () => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
     validateFile(droppedFile);
+  };
+  const [fileUrl, setFileUrl] = useState(""); // Dosyanın Base64 url'ini saklayacağız
+
+  const convertToBase64 = (uploadedFile) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(uploadedFile);
+
+    reader.onloadend = () => {
+      const base64File = reader.result;
+      setFileUrl(base64File); // Base64 formatındaki dosya URL'si
+    };
+    useEffect(() => {
+      setEkspertizData(base64File);
+    }, [fileUrl]);
   };
 
   return (

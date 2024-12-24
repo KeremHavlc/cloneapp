@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -6,7 +6,12 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FaCheck } from "react-icons/fa";
 
-const HWInfo = () => {
+const HWInfo = ({
+  setSecurityData,
+  setHardwareData,
+  setDishardwareData,
+  setMediaData,
+}) => {
   const [expanded, setExpanded] = useState("panel1");
   const [isButtonClick, setIsButtonClick] = useState(false);
 
@@ -18,6 +23,31 @@ const HWInfo = () => {
   const [selectedHardware, setSelectedHardware] = useState([]);
   const [selectedDisHardware, setSelectedDisHardware] = useState([]);
   const [selectedMedia, setSelectedMedia] = useState([]);
+
+  useEffect(() => {
+    if (selectedSecurity) {
+      setSecurityData(selectedSecurity);
+    }
+  }, [selectedSecurity]);
+
+  useEffect(() => {
+    if (selectedHardware) {
+      setHardwareData(selectedHardware);
+    }
+  }, [selectedHardware]);
+
+  useEffect(() => {
+    if (selectedDisHardware) {
+      setDishardwareData(selectedDisHardware);
+    }
+  }, [selectedDisHardware]);
+
+  useEffect(() => {
+    if (selectedMedia) {
+      setMediaData(selectedMedia);
+    }
+  }, [selectedMedia]);
+
   const options = [
     "ABS",
     "AEB",
@@ -124,17 +154,14 @@ const HWInfo = () => {
   };
 
   const handleSubmit1 = () => {
-    console.log("Seçilen Güvenlik Seçenekleri:", selectedSecurity);
     setExpanded("panel2");
     setIsButtonClick(true);
   };
   const handleSubmit2 = () => {
-    console.log("Seçilen İç Donanım Seçenekleri:", selectedHardware);
     setExpanded("panel3");
     setIsButtonClick(true);
   };
   const handleSubmit3 = () => {
-    console.log("Seçilen Dış Donanım Seçenekleri:", selectedDisHardware);
     setExpanded("panel4");
     setIsButtonClick(true);
   };

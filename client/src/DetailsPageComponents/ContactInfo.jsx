@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const ContactInfo = () => {
+const ContactInfo = ({ setContactInfoData }) => {
+  const [click, setClick] = useState(false);
+  const handleClick = () => {
+    setClick((prevState) => !prevState);
+  };
+  useEffect(() => {
+    setContactInfoData(click);
+  }, [click]);
+
   return (
     <>
       <div className="ml-[394px] pt-[50px] w-[1050px]">
@@ -15,7 +23,7 @@ const ContactInfo = () => {
         </div>
 
         <div className="ml-[200px] mt-[40px] flex flex-row">
-          <input type="checkbox" className="" />
+          <input type="checkbox" className="" onClick={handleClick} />
           <span className="ml-5 text-gray-700 font-semibold">
             Telefon Numaram ile
           </span>

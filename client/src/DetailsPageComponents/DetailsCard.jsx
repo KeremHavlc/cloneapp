@@ -1,82 +1,156 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Editor from "react-simple-wysiwyg";
 import { Select, Space } from "antd";
 
-const DetailsCard = () => {
-  const [html, setHtml] = useState("");
+const DetailsCard = ({ setDetailsCardData }) => {
+  const [formData, setFormData] = useState({
+    html: "",
+    title: "",
+    tik: false,
+    fiyat: "",
+    language: "TR",
+    vehicleStatus: "İkinci El",
+    km: "",
+    color: "",
+    garanti: "",
+    hasar: "",
+    uyruk: "",
+    plaka: "",
+    sasi: "",
+    takas: "",
+  });
 
-  function onChange(e) {
-    setHtml(e.target.value);
-  }
-
-  const [title, setTitle] = useState("");
-  const [tik, setTik] = useState(false);
-  const [fiyat, setFiyat] = useState("");
-  const [language, setLanguage] = useState("TR");
-  const [vehicleStatus, setVehicleStatus] = useState("İkinci El");
-  const [km, setKm] = useState("");
-  const [color, setColor] = useState("");
-  const [garanti, setGaranti] = useState("");
-  const [hasar, setHasar] = useState("");
-  const [uyruk, setUyruk] = useState("");
-  const [plaka, setPlaka] = useState("");
-  const [sasi, setSasi] = useState("");
-  const [takas, setTakas] = useState("");
-
+  useEffect(() => {
+    if (
+      formData.html ||
+      formData.title ||
+      formData.tik ||
+      formData.fiyat ||
+      formData.language ||
+      formData.vehicleStatus ||
+      formData.km ||
+      formData.color ||
+      formData.garanti ||
+      formData.hasar ||
+      formData.uyruk ||
+      formData.plaka ||
+      formData.sasi ||
+      formData.takas
+    ) {
+      setDetailsCardData((prevData) => [...prevData, formData]);
+    }
+  }, [formData, setDetailsCardData]);
+  // title için handle
   const handleTitle = (value) => {
-    setTitle(value);
+    setFormData((prevState) => ({
+      ...prevState,
+      title: value,
+    }));
   };
-  const handleTik = () => {
-    setTik(true);
-  };
-  const handleFiyat = (value) => {
-    setFiyat(value);
-  };
-  const handleChangeLanguage = (value) => {
-    setLanguage(value);
-  };
-  const handleVehicleStatus = (value) => {
-    setVehicleStatus(value);
-  };
-  const handleKm = (value) => {
-    setKm(value);
-  };
-  const handleColor = (value) => {
-    setColor(value);
-  };
-  const handleGaranti = (value) => {
-    setGaranti(value);
-  };
-  const handleHasar = (value) => {
-    setHasar(value);
-  };
-  const handleUyruk = (value) => {
-    setUyruk(value);
-  };
-  const handlePlaka = (value) => {
-    setPlaka(value);
-  };
-  const handleSasi = (value) => {
-    setSasi(value);
-  };
-  const handleTakas = (value) => {
-    setTakas(value);
-  };
-  console.log("Başlık : ", title);
-  console.log("Tik : ", tik);
-  console.log("Fiyat : ", fiyat);
-  console.log("Dil : ", language);
-  console.log("Araç Durumu :", vehicleStatus);
-  console.log("Km : ", km);
-  console.log("Renk: ", color);
-  console.log("Garanti :", garanti);
-  console.log("HasarDurumu :", hasar);
-  console.log("Plaka Uyruk : ", uyruk);
-  console.log("Plaka : ", plaka);
-  console.log("Şasi No : ", sasi);
-  console.log("Takas : ", takas);
 
-  console.log("Açıklama", html);
+  // tik için handle
+  const handleTik = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      tik: !prevState.tik, // Mevcut değeri tersine çevir
+    }));
+  };
+
+  // fiyat için handle
+  const handleFiyat = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      fiyat: value,
+    }));
+  };
+
+  // language için handle
+  const handleChangeLanguage = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      language: value,
+    }));
+  };
+
+  // vehicleStatus için handle
+  const handleVehicleStatus = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      vehicleStatus: value,
+    }));
+  };
+
+  // km için handle
+  const handleKm = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      km: value,
+    }));
+  };
+
+  // color için handle
+  const handleColor = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      color: value,
+    }));
+  };
+
+  // garanti için handle
+  const handleGaranti = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      garanti: value,
+    }));
+  };
+
+  // hasar için handle
+  const handleHasar = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      hasar: value,
+    }));
+  };
+
+  // uyruk için handle
+  const handleUyruk = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      uyruk: value,
+    }));
+  };
+
+  // plaka için handle
+  const handlePlaka = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      plaka: value,
+    }));
+  };
+
+  // sasi için handle
+  const handleSasi = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      sasi: value,
+    }));
+  };
+
+  // takas için handle
+  const handleTakas = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      takas: value,
+    }));
+  };
+  // html için handle
+  const handleHtml = (value) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      html: value,
+    }));
+  };
+
   return (
     <>
       <div className="ml-[394px] pt-[50px] ">
@@ -123,8 +197,8 @@ const DetailsCard = () => {
           </span>
           <div className="h-[330px] w-[951px] mt-4">
             <Editor
-              value={html}
-              onChange={onChange}
+              value={formData.html} // Burada değer atanıyor
+              onChange={(e) => handleHtml(e.target.value)} // Değişiklik handle fonksiyonuna gidiyor
               className="h-[330px] text-sm"
               placeholder="Bireysel kullanıcılarımızda alıcı ve satıcı güvenliğini sağlamak için açıklama alanına telefon numarası yazılan ilanlar onaylanmamaktadır."
             />
