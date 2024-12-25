@@ -37,6 +37,7 @@ export default {
         'bgbgbg' : '#f9f9f9',
         'mavikoyu2':'#3670ab',
         'vitringri' : '#f2f2f2',
+         'vitrinusergri' : '#f9f9f9'
         
       },
       fontFamily:{

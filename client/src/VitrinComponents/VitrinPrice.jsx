@@ -6,7 +6,7 @@ const VitrinPrice = () => {
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-price/676b120f6210a1e7eebd412f"
+        "http://localhost:5000/api/vasitadetails/get-details-price/676c6504f44b85f6b30d45d8"
       );
       if (!response.ok) {
         throw new Error("Bir Hata Oluştu!");

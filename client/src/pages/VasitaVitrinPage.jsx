@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../components/Header";
 import VitrinHeader from "../VitrinComponents/VitrinHeader";
 import VitrinTitle from "../VitrinComponents/VitrinTitle";
@@ -6,6 +6,7 @@ import VitrinPhotos from "../VitrinComponents/VitrinPhotos";
 import VitrinPrice from "../VitrinComponents/VitrinPrice";
 import VitrinAddress from "../VitrinComponents/VitrinAddress";
 import VitrinInfo from "../VitrinComponents/VitrinInfo";
+import VitrinUser from "../VitrinComponents/VitrinUser";
 
 const VasitaVitrinPage = () => {
   return (
@@ -20,6 +21,7 @@ const VasitaVitrinPage = () => {
           <VitrinAddress />
           <VitrinInfo />
         </div>
+        <VitrinUser />
       </div>
     </>
   );

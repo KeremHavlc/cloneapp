@@ -19,7 +19,8 @@ const VasitaDetailsSchema = new mongoose.Schema({
   mediaData: { type: Object, required: true },
   photoData: { type: Object, required: true },
   contactInfoData: { type: Object, required: true },
-});
+},
+{timestamps:true});
 
 const VasitaDetails = mongoose.model('VasitaDetails', VasitaDetailsSchema);
 

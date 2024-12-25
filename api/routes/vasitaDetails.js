@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const VasitaDetails = require('../models/VasitaDetails'); // Modeli import et
+const User = require('../models/User');
 
 // '/add-vasita-details' route'u
 router.post('/add-vasita-details', async (req, res) => {
@@ -141,5 +142,45 @@ router.get('/get-details-address/:_id' ,async(req,res)=>{
   } catch (error) {
     res.status(500).json("Sunucu Hatası!");
   }
-})
+});
+router.get('/get-details-ilan/:_id' ,async(req,res)=>{
+  try {
+    const data = await VasitaDetails.findById(req.params._id).select('carData , modelData , yearData , detailsCardData , createdAt');
+    if(!data){
+      return res.status(404).json("Veri Bulunamadı!");
+    }
+    res.json(data);
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
+router.get('/get-details-ilanUserWithDetails/:_id', async (req, res) => {
+  try {
+    // 1. İlan detaylarından userId'yi al
+    const ilanData = await VasitaDetails.findById(req.params._id).select('userId');
+    if (!ilanData) {
+      return res.status(404).json("İlan Verisi Bulunamadı!");
+    }
+    const userId = ilanData.userId;
+
+    // 2. userId ile kullanıcı detaylarını al
+    const userData = await User.findById(userId).select('name , surname , createdAt');
+    if (!userData) {
+      return res.status(404).json("Kullanıcı Verisi Bulunamadı!");
+    }
+
+    // 3. İki veriyi birleştirerek döndür
+    res.json({
+      ilanData,
+      userData,
+    });
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
+
+
+
+
+
 module.exports = router;

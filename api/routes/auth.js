@@ -49,6 +49,16 @@ router.post("/login" ,async(req,res)=>{
     } catch (error) {
         res.status(500).json(error);
     }
-})
-
+});
+router.get('/get-details-user/:_id' ,async(req,res)=>{
+    try {
+      const data = await User.findById(req.params._id).select('name , surname , createdAt');
+      if(!data){
+        return res.status(404).json("Veri Bulunamadı!");
+      }
+      res.json(data);
+    } catch (error) {
+      res.status(500).json("Sunucu Hatası!");
+    }
+  });
 module.exports = router;
