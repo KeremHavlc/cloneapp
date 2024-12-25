@@ -36,6 +36,7 @@ export default {
         'vitrinyesil' : '#2c9470',
         'bgbgbg' : '#f9f9f9',
         'mavikoyu2':'#3670ab',
+        'vitringri' : '#f2f2f2',
         
       },
       fontFamily:{

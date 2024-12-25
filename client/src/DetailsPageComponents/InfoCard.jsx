@@ -2,7 +2,12 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { TbSteeringWheel } from "react-icons/tb";
 
-const InfoCard = () => {
+const InfoCard = ({
+  setVehicleData,
+  setYearData,
+  setCarData,
+  setModelData,
+}) => {
   const getInfoFromToken = (token) => {
     if (!token) {
       console.log("Token Bulunamadi!");
@@ -51,6 +56,21 @@ const InfoCard = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  useEffect(() => {
+    setCarData(car);
+    setModelData(model);
+    setYearData(year);
+    setVehicleData(vehicle);
+  }, [
+    car,
+    model,
+    year,
+    vehicle,
+    setCarData,
+    setModelData,
+    setYearData,
+    setVehicleData,
+  ]);
   return (
     <>
       <div>
@@ -116,13 +136,13 @@ const InfoCard = () => {
               <TbSteeringWheel className="text-white" />
             </div>
             <div>
-                <span>{vehicle}&nbsp;</span>
-                <span>→ &nbsp;</span>
-                <span>{year}&nbsp;</span>
-                <span>→ &nbsp;</span>
-                <span>{car}&nbsp;</span>
-                <span>→ &nbsp;</span>
-                <span>{model}</span>
+              <span>{vehicle}&nbsp;</span>
+              <span>→ &nbsp;</span>
+              <span>{year}&nbsp;</span>
+              <span>→ &nbsp;</span>
+              <span>{car}&nbsp;</span>
+              <span>→ &nbsp;</span>
+              <span>{model}</span>
             </div>
           </div>
         </div>

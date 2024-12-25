@@ -26,6 +26,35 @@ const VasitaDetails = () => {
   const [district, setDistrict] = useState("");
   const [neighborhood, setNeighborhood] = useState("");
 
+  const [userId, setUserId] = useState("");
+
+  const [vehicleData, setVehicleData] = useState("");
+  const [yearData, setYearData] = useState("");
+  const [carData, setCarData] = useState("");
+  const [modelData, setModelData] = useState("");
+
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split(".")[1])); // Payload kısmını decode et
+    } catch (e) {
+      console.error("Token parse edilemedi:", e);
+      return null;
+    }
+  };
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      const decodedToken = parseJwt(authToken);
+      if (decodedToken && decodedToken.userId) {
+        setUserId(decodedToken.userId);
+      } else {
+        console.error("Kullanıcı ID bulunamadı.");
+      }
+    } else {
+      console.error("Auth token bulunamadı.");
+    }
+  }, []); // Boş bağımlılık dizisi ile yalnızca bir kez çalışır.
+
   const handleSubmit = async () => {
     // Eğer tüm veriler doluysa devam et
     if (
@@ -46,9 +75,14 @@ const VasitaDetails = () => {
     }
 
     const payload = {
+      userId,
+      vehicleData,
+      yearData,
+      carData,
+      modelData,
       detailsCardData,
-      city: city, // city verisini doğrudan gönderiyoruz
-      district: district, // district verisini doğrudan gönderiyoruz
+      city: city,
+      district: district,
       neighborhood: neighborhood,
       pceInformationCardData,
       ekspertizData,
@@ -83,7 +117,12 @@ const VasitaDetails = () => {
     <>
       <DetailsHeader /> {/*+*/}
       <div className="bg-addgri h-full">
-        <InfoCard />
+        <InfoCard
+          setVehicleData={setVehicleData}
+          setYearData={setYearData}
+          setCarData={setCarData}
+          setModelData={setModelData}
+        />
         {/*+*/}
         <DetailsCard setDetailsCardData={setDetailsCardData} />
         {/*+*/}

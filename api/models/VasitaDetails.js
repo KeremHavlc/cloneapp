@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 // Vasıta Detayları için Model
 const VasitaDetailsSchema = new mongoose.Schema({
+  userId : { type: String, required: true },
+  vehicleData : { type: String, required: true },
+  yearData : { type: String, required: true },
+  carData : { type: String, required: true },
+  modelData : { type: String, required: true },
   detailsCardData: { type: Object, required: true },
   city: { type: String, required: true },
   district: { type: String, required: true },

@@ -7,6 +7,7 @@ import AddPage from "./pages/AddPage";
 import AddVasita from "./pages/AddVasita";
 import AddEmlak from "./pages/AddEmlak";
 import VasitaDetails from "./pages/VasitaDetails";
+import VasitaVitrinPage from "./pages/VasitaVitrinPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/add/vasita" element={<AddVasita />} />
         <Route path="/add/emlak" element={<AddEmlak />} />
         <Route path="/add/vasita/details" element={<VasitaDetails />} />
+        <Route path="/vasitavitrin" element={<VasitaVitrinPage />} />
       </Routes>
     </BrowserRouter>
   );
