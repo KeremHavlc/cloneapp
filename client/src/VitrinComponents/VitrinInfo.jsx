@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { MdFlag } from "react-icons/md";
 const VitrinInfo = () => {
   const [dataFetch, setDataFetch] = useState([]);
   const [ilanNo, setIlanNo] = useState("");
@@ -114,6 +114,12 @@ const VitrinInfo = () => {
           </div>
           <div className="border-b-2 border-dotted w-full mt-1"></div>
         </div>
+      </div>
+      <div className="ml-24 mt-4 flex flex-row">
+        <MdFlag className="mt-[2px] text-tgri text-sm " />
+        <span className="text-xs text-tmavi hover:underline cursor-pointer ml-1">
+          İlan ile İlgili Şikayetim Var
+        </span>
       </div>
     </>
   );

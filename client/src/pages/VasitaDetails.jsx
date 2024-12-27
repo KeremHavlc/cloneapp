@@ -57,19 +57,7 @@ const VasitaDetails = () => {
 
   const handleSubmit = async () => {
     // Eğer tüm veriler doluysa devam et
-    if (
-      !detailsCardData ||
-      !city ||
-      !district ||
-      !neighborhood ||
-      !pceInformationCardData ||
-      !securityData ||
-      !hardwareData ||
-      !dishardwareData ||
-      !mediaData ||
-      !photoData ||
-      !contactInfoData
-    ) {
+    if (!detailsCardData) {
       console.log("Eksik veri, işlem yapılamaz.");
       return; // Veriler eksikse submit etmeyin
     }

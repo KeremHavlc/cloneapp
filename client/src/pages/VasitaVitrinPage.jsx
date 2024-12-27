@@ -7,6 +7,8 @@ import VitrinPrice from "../VitrinComponents/VitrinPrice";
 import VitrinAddress from "../VitrinComponents/VitrinAddress";
 import VitrinInfo from "../VitrinComponents/VitrinInfo";
 import VitrinUser from "../VitrinComponents/VitrinUser";
+import VitrinHtml from "../VitrinComponents/VitrinHtml";
+import VitrinHwp from "../VitrinComponents/VitrinHwp";
 
 const VasitaVitrinPage = () => {
   return (
@@ -23,6 +25,8 @@ const VasitaVitrinPage = () => {
         </div>
         <VitrinUser />
       </div>
+      <VitrinHtml />
+      <VitrinHwp />
     </>
   );
 };

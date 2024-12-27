@@ -180,6 +180,44 @@ router.get('/get-details-ilanUserWithDetails/:_id', async (req, res) => {
 });
 
 
+router.get('/get-details-html/:_id' ,async(req,res)=>{
+  try {
+    const data = await VasitaDetails.findById(req.params._id).select('detailsCardData');
+    if(!data){
+      return res.status(404).json("Veri Bulunamadı!");
+    }
+    const lastDetail = data.detailsCardData[data.detailsCardData.length - 1];
+
+    res.json(lastDetail);
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
+
+
+
+router.get('/get-details-pce/:_id' ,async(req,res)=>{
+  try {
+    const data = await VasitaDetails.findById(req.params._id).select('pceInformationCardData');
+    if(!data){
+      return res.status(404).json("Veri Bulunamadı!");
+    }
+    res.json(data);
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
+router.get('/get-details-security/:_id' ,async(req,res)=>{
+  try {
+    const data = await VasitaDetails.findById(req.params._id).select('securityData');
+    if(!data){
+      return res.status(404).json("Veri Bulunamadı!");
+    }
+    res.json(data);
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
 
 
 
