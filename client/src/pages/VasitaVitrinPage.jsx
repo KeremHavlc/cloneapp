@@ -9,24 +9,32 @@ import VitrinInfo from "../VitrinComponents/VitrinInfo";
 import VitrinUser from "../VitrinComponents/VitrinUser";
 import VitrinHtml from "../VitrinComponents/VitrinHtml";
 import VitrinHwp from "../VitrinComponents/VitrinHwp";
+import Footer from "../components/Footer";
+import VitrinFooterText from "../VitrinComponents/VitrinFooterText";
 
 const VasitaVitrinPage = () => {
   return (
     <>
-      <Header />
-      <VitrinHeader />
-      <VitrinTitle />
-      <div className="flex flex-row">
-        <VitrinPhotos />
-        <div className="flex flex-col">
-          <VitrinPrice />
-          <VitrinAddress />
-          <VitrinInfo />
+      <div className="flex flex-col min-h-screen">
+        {" "}
+        {/* Flexbox düzeni ve min-h-screen kullanarak sayfa yüksekliğini minimum ekran boyutuna ayarlıyoruz */}
+        <Header />
+        <VitrinHeader />
+        <VitrinTitle />
+        <div className="flex flex-row">
+          <VitrinPhotos />
+          <div className="flex flex-col">
+            <VitrinPrice />
+            <VitrinAddress />
+            <VitrinInfo />
+          </div>
+          <VitrinUser />
         </div>
-        <VitrinUser />
+        <VitrinHtml />
+        <VitrinHwp />
+        <VitrinFooterText />
+        <Footer className="mt-auto" />
       </div>
-      <VitrinHtml />
-      <VitrinHwp />
     </>
   );
 };

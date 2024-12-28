@@ -216,7 +216,7 @@ const AddVasita = () => {
     Dacia: ["Sandero", "Lodgy", "Dokker", "Spring", "Jogger"],
     DSAutomobiles: ["DS 3", "DS 4", "DS 7 Crossback", "DS 9"],
     Ferrari: ["Portofino", "Roma", "488 GTB", "812 Superfast", "SF90 Stradale"],
-    Fiat: ["500", "Panda", "Tipo", "Doblo", "500X", "Punto"],
+    Fiat: ["500", "Panda", "Tipo", "Doblo", "500X", "Punto", "Egea"],
     Ford: ["Fiesta", "Focus", "Mustang", "Mondeo", "Kuga", "Ranger"],
     Honda: ["Civic", "CR-V", "HR-V", "Jazz", "Accord", "Pilot"],
     Hyundai: ["i10", "i20", "i30", "Elantra", "Tucson", "Santa Fe", "Kona"],

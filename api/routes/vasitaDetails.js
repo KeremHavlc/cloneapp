@@ -218,7 +218,50 @@ router.get('/get-details-security/:_id' ,async(req,res)=>{
     res.status(500).json("Sunucu Hatası!");
   }
 });
+router.get('/get-details-hardware/:_id' ,async(req,res)=>{
+  try {
+    const data = await VasitaDetails.findById(req.params._id).select('hardwareData');
+    if(!data){
+      return res.status(404).json("Veri Bulunamadı!");
+    }
+    res.json(data);
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
+router.get('/get-details-dishardware/:_id' , async(req,res)=>{
+  try {
+    const  data = await VasitaDetails.findById(req.params._id).select('dishardwareData');
+    if(!data){
+      return res.status(404).json("Veri Bulunamadı!");
+    }
+    res.json(data);
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
 
+router.get('/get-details-media/:_id' , async(req,res)=>{
+  try {
+    const data = await VasitaDetails.findById(req.params._id).select('mediaData');
+    if(!data){
+     return res.status(404).json("Veri Bulunamadı!");
+    }
+    res.json(data);
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
 
-
+router.get('/get-details-vitrin', async(req,res)=>{
+  try {
+    const data = await VasitaDetails.find().select('photoData , detailsCardData');
+    if(!data){
+      return res.status(404).json("Veri Bulunamadı!");
+    }
+    res.json(data);
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+})
 module.exports = router;

@@ -1,44 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
-
-const VitrinSecurity = () => {
-  const options = [
-    "ABS",
-    "AEB",
-    "ESP / VSA",
-    "BAS",
-    "Distronic",
-    "Yokuş Kalkış Desteği",
-    "Zırhlı Araç",
-    "Gece Görüş Sistemi",
-    "Şerit Takip Sistemi",
-    "Hava Yastığı (Sürücü)",
-    "Hava Yastığı (Yolcu)",
-    "Kör Nokta Uyarı Sistemi",
-    "Yorgunluk Tespit Sistemi",
-    "Isofix",
-    "Çocuk Kilidi",
-    "Merkezi Kilit",
-    "Immobilizer",
+const VitrinDisHardware = () => {
+  const dishardWare = [
+    "Ayakla Açılan Bagaj Kapağı",
+    "Hardtop",
+    "Far (Adaptif)",
+    "Aynalar (Elektrikli)",
+    "Aynalar (Isıtmalı)",
+    "Aynalar (Hafızalı)",
+    "Park Sensörü (Arka)",
+    "Park Sensörü (Ön)",
+    "Park Asistanı",
+    "Sunroof",
+    "Panoramik Cam Tavan",
+    "Römork Çeki Demiri",
+    "Akıllı Bagaj Kapağı",
   ];
-
-  const [dataFetch, setDataFetch] = useState([]);
+  const [fetchData, setFetchData] = useState([]);
 
   const fetchingData = async () => {
     try {
-      const res = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-security/676f6668f29aa130115c2d7d"
+      const response = await fetch(
+        "http://localhost:5000/api/vasitadetails/get-details-dishardware/676f6668f29aa130115c2d7d"
       );
-      if (!res.ok) {
+      if (!response.ok) {
         throw new Error("Sunucu Hatası!");
       }
-      const data = await res.json();
-      setDataFetch(data.securityData || []);
+      const data = await response.json();
+      setFetchData(data.dishardwareData || []);
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
     fetchingData();
   }, []);
@@ -46,8 +39,8 @@ const VitrinSecurity = () => {
   return (
     <div className="w-full border bg-vitrinpce border-orange-200 p-4">
       <div className="grid grid-cols-4 gap-y-2">
-        {options.map((option, index) => {
-          const isAvailable = dataFetch.includes(option);
+        {dishardWare.map((dishardWare, index) => {
+          const isAvailable = fetchData.includes(dishardWare);
           return (
             <div
               key={index}
@@ -62,7 +55,7 @@ const VitrinSecurity = () => {
               >
                 <FaCheck />
               </span>
-              {option}
+              {dishardWare}
             </div>
           );
         })}
@@ -71,4 +64,4 @@ const VitrinSecurity = () => {
   );
 };
 
-export default VitrinSecurity;
+export default VitrinDisHardware;

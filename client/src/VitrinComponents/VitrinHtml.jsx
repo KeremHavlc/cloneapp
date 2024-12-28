@@ -7,7 +7,7 @@ const VitrinHtml = () => {
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-html/676c6504f44b85f6b30d45d8"
+        "http://localhost:5000/api/vasitadetails/get-details-html/676f6668f29aa130115c2d7d"
       );
       if (!response.ok) {
         throw new Error("Bir Hata Oluştu!");
@@ -49,7 +49,8 @@ const VitrinHtml = () => {
       <div>
         <Collapse
           size="small"
-          expandIconPosition="right"
+          expandIconPosition="end"
+          defaultActiveKey={["1"]}
           items={[
             {
               key: "1",
@@ -62,10 +63,9 @@ const VitrinHtml = () => {
               ),
             },
           ]}
-          className="w-[1150px]  mt-4 ml-[394px]"
+          className="w-[1150px]  mt-4 ml-[394px] rounded-none"
         />
       </div>
-
     </>
   );
 };

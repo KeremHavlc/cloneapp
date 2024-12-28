@@ -2,6 +2,9 @@ import React from "react";
 import { Collapse } from "antd";
 import VitrinPCE from "./VitrinHwpComponents/VitrinPCE";
 import VitrinSecurity from "./VitrinHwpComponents/VitrinSecurity";
+import VitrinHardware from "./VitrinHwpComponents/VitrinHardware";
+import VitrinDisHardware from "./VitrinHwpComponents/VitrinDisHardware";
+import VitrinMedia from "./VitrinHwpComponents/VitrinMedia";
 
 const VitrinHwp = () => {
   return (
@@ -9,8 +12,9 @@ const VitrinHwp = () => {
       <div className="">
         <div>
           <Collapse
+            defaultActiveKey={["1"]}
             size="small"
-            expandIconPosition="right"
+            expandIconPosition="end" 
             items={[
               {
                 key: "1",
@@ -24,36 +28,40 @@ const VitrinHwp = () => {
                       </span>
                       <VitrinPCE />
                     </div>
-                    <div>
-                      <span className="text-blue-400 font-semibold">
+                    <div className="mt-4">
+                      <span className="text-blue-400 font-semibold ">
                         Güvenlik
                       </span>
                       <VitrinSecurity />
+                    </div>
+                    <div className="mt-4">
+                      <span className="text-blue-400 font-semibold ">
+                        İç Donanım
+                      </span>
+                      <VitrinHardware />
+                    </div>
+                    <div className="mt-4">
+                      <span className="text-blue-400 font-semibold ">
+                        Dış Donanım
+                      </span>
+                      <VitrinDisHardware />
+                    </div>
+                    <div className="mt-4">
+                      <span className="text-blue-400 font-semibold ">
+                        Mutlimedya
+                      </span>
+                      <VitrinMedia />
                     </div>
                   </div>
                 ),
               },
             ]}
-            className="w-[1150px]  mt-4 ml-[394px]"
+            className="w-[1150px] mt-4 ml-[394px] rounded-none"
           />
         </div>
       </div>
 
-      <div className="flex flex-col mt-56">
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-        <span>kerem</span>
-      </div>
+
     </>
   );
 };

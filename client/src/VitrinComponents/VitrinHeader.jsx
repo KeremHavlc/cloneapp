@@ -10,7 +10,7 @@ const VitrinHeader = () => {
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-info/676c6504f44b85f6b30d45d8"
+        "http://localhost:5000/api/vasitadetails/get-details-info/676f6668f29aa130115c2d7d"
       );
       if (!response.ok) {
         throw new Error("Bir hata oluştu!");
