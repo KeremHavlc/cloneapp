@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 
-const VitrinSecurity = () => {
+const VitrinSecurity = ({ id }) => {
   const options = [
     "ABS",
     "AEB",
@@ -27,7 +27,7 @@ const VitrinSecurity = () => {
   const fetchingData = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-security/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-security/${id}`
       );
       if (!res.ok) {
         throw new Error("Sunucu Hatası!");

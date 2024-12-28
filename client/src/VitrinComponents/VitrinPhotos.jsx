@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Carousel, Image, Button } from "antd";
 
-const VitrinPhotos = () => {
+const VitrinPhotos = ({ id }) => {
   const [images, setImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const imagesPerPage = 4; // Her sayfada gösterilecek fotoğraf sayısı
@@ -10,7 +10,7 @@ const VitrinPhotos = () => {
   const fetchImages = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-photo/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-photo/${id}`
       );
       const data = await response.json();
 
@@ -100,7 +100,9 @@ const VitrinPhotos = () => {
               Sayfa {currentPage} / {totalPages}
             </span>
             <Button
-              onClick={() => setCurrentPage(Math.min(currentPage + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage(Math.min(currentPage + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
             >
               Sonraki
@@ -108,7 +110,9 @@ const VitrinPhotos = () => {
           </div>
         </>
       ) : (
-        <span className="text-center text-gray-500">Fotoğraflar yükleniyor...</span>
+        <span className="text-center text-gray-500">
+          Fotoğraflar yükleniyor...
+        </span>
       )}
     </div>
   );

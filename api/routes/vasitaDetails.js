@@ -253,9 +253,9 @@ router.get('/get-details-media/:_id' , async(req,res)=>{
   }
 });
 
-router.get('/get-details-vitrin', async(req,res)=>{
+router.get('/get-details-vitrinHTML', async(req,res)=>{
   try {
-    const data = await VasitaDetails.find().select('photoData , detailsCardData');
+    const data = await VasitaDetails.find().select('detailsCardData');
     if(!data){
       return res.status(404).json("Veri Bulunamadı!");
     }
@@ -264,4 +264,33 @@ router.get('/get-details-vitrin', async(req,res)=>{
     res.status(500).json("Sunucu Hatası!");
   }
 })
+router.get('/get-details-vitrinPHOTO', async (req, res) => {
+  try {
+    const data = await VasitaDetails.find().select('photoData');
+    if (!data) {
+      return res.status(404).json("Veri Bulunamadı!");
+    }
+
+    // Fotoğraf verisini işlerken yalnızca base64 kısmını alıyoruz
+    const modifiedData = data.map((item) => {
+      // photoData içerisindeki 'data:image' kısmını kaldırıyoruz
+      if (item.photoData) {
+        const base64Data = item.photoData.split(',')[1]; // data:image kısmını atlıyoruz
+        return {
+          _id: item._id,
+          photoData: base64Data ? base64Data : null, // Sadece base64 kısmı
+        };
+      }
+      return {
+        _id: item._id,
+        photoData: null,
+      };
+    });
+
+    res.json(modifiedData); // İşlenmiş veriyi döndürüyoruz
+  } catch (error) {
+    res.status(500).json("Sunucu Hatası!");
+  }
+});
+
 module.exports = router;

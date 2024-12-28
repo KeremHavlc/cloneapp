@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { VscPercentage } from "react-icons/vsc";
-const VitrinPrice = () => {
+const VitrinPrice = ({ id }) => {
   const [priceFetch, setPriceFetch] = useState("");
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-price/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-price/${id}`
       );
       if (!response.ok) {
         throw new Error("Bir Hata Oluştu!");

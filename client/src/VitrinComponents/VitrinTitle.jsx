@@ -4,12 +4,12 @@ import { IoIosStar } from "react-icons/io";
 import { TiPrinter } from "react-icons/ti";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { IoMailSharp } from "react-icons/io5";
-const VitrinTitle = () => {
+const VitrinTitle = ({ id }) => {
   const [titleFetch, setTitleFetch] = useState("");
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-title/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-title/${id}`
       );
       if (!response.ok) {
         throw new Error("Bir Hata oluştu!");

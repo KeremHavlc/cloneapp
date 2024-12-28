@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 
-const VitrinMedia = () => {
+const VitrinMedia = ({ id }) => {
   const multimedya = [
     "Android Auto",
     "Apple Car Play",
@@ -14,7 +14,7 @@ const VitrinMedia = () => {
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-media/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-media/${id}`
       );
       if (!response.ok) {
         throw new Error("Sunucu Hatası!");

@@ -6,7 +6,8 @@ import VitrinHardware from "./VitrinHwpComponents/VitrinHardware";
 import VitrinDisHardware from "./VitrinHwpComponents/VitrinDisHardware";
 import VitrinMedia from "./VitrinHwpComponents/VitrinMedia";
 
-const VitrinHwp = () => {
+const VitrinHwp = ({ _id }) => {
+  const id = _id;
   return (
     <>
       <div className="">
@@ -14,7 +15,7 @@ const VitrinHwp = () => {
           <Collapse
             defaultActiveKey={["1"]}
             size="small"
-            expandIconPosition="end" 
+            expandIconPosition="end"
             items={[
               {
                 key: "1",
@@ -26,31 +27,31 @@ const VitrinHwp = () => {
                       <span className="text-blue-400 font-semibold">
                         Boyalı veya Değişen Parça
                       </span>
-                      <VitrinPCE />
+                      <VitrinPCE id={id} />
                     </div>
                     <div className="mt-4">
                       <span className="text-blue-400 font-semibold ">
                         Güvenlik
                       </span>
-                      <VitrinSecurity />
+                      <VitrinSecurity id={id} />
                     </div>
                     <div className="mt-4">
                       <span className="text-blue-400 font-semibold ">
                         İç Donanım
                       </span>
-                      <VitrinHardware />
+                      <VitrinHardware id={id} />
                     </div>
                     <div className="mt-4">
                       <span className="text-blue-400 font-semibold ">
                         Dış Donanım
                       </span>
-                      <VitrinDisHardware />
+                      <VitrinDisHardware id={id} />
                     </div>
                     <div className="mt-4">
                       <span className="text-blue-400 font-semibold ">
                         Mutlimedya
                       </span>
-                      <VitrinMedia />
+                      <VitrinMedia id={id} />
                     </div>
                   </div>
                 ),
@@ -60,8 +61,6 @@ const VitrinHwp = () => {
           />
         </div>
       </div>
-
-
     </>
   );
 };

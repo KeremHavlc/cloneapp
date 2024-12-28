@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { MdFlag } from "react-icons/md";
-const VitrinInfo = () => {
+const VitrinInfo = ({ id }) => {
   const [dataFetch, setDataFetch] = useState([]);
   const [ilanNo, setIlanNo] = useState("");
   const [formattedDate, setFormattedDate] = useState("");
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-ilan/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-ilan/${id}`
       );
       if (!response.ok) {
         throw new Error("Bir Hata Oluştu!");

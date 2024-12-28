@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-const VitrinAddress = () => {
+const VitrinAddress = ({ id }) => {
   const [addressFetch, setAddressFetch] = useState([]);
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-address/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-address/${id}`
       );
       if (!response.ok) {
         throw new Error("Bir hata oluştu!");

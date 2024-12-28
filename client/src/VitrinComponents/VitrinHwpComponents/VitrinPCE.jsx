@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import image from "../VitrinHwpComponents/Vitrinİmages/car2.png";
 
-const VitrinPCE = () => {
+const VitrinPCE = ({ id }) => {
   const [fetchData, setFetchData] = useState({});
   const [error, setError] = useState(null);
 
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-pce/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-pce/${id}`
       );
       if (!response.ok) {
         throw new Error("Sunucu Hatası!");
@@ -63,7 +63,7 @@ const VitrinPCE = () => {
 
           {/* Değişen Parçalar */}
           {replacedParts.length > 0 && (
-            <div className="flex flex-row mt-6 ml-32">
+            <div className="flex flex-row mt-6 ">
               <div className="w-2 h-2 mt-[6px] bg-degisen"></div>
               <span className="ml-2">
                 <span className="font-bold">Değişen Parçalar</span>

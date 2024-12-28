@@ -20,7 +20,7 @@ function App() {
         <Route path="/add/vasita" element={<AddVasita />} />
         <Route path="/add/emlak" element={<AddEmlak />} />
         <Route path="/add/vasita/details" element={<VasitaDetails />} />
-        <Route path="/vasitavitrin" element={<VasitaVitrinPage />} />
+        <Route path="/vasitavitrin/:id" element={<VasitaVitrinPage />} />
       </Routes>
     </BrowserRouter>
   );

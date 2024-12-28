@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
-const VitrinHardware = () => {
+const VitrinHardware = ({id}) => {
   const hardWare = [
     "Hidrolik Direksiyon",
     "Üçüncü Sıra Koltuklar",
@@ -30,7 +30,7 @@ const VitrinHardware = () => {
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-hardware/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-hardware/${id}`
       );
       if (!response.ok) {
         throw new Error("Sunucu Hatası!");

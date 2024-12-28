@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const VitrinHeader = () => {
+const VitrinHeader = ({ id }) => {
   const [fetchData, setFetchData] = useState([]);
   const [vehicleFetch, setVehicleFetch] = useState("");
   const [yearFetch, setYearFetch] = useState("");
@@ -10,7 +10,7 @@ const VitrinHeader = () => {
   const fetchingData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/vasitadetails/get-details-info/676f6668f29aa130115c2d7d"
+        `http://localhost:5000/api/vasitadetails/get-details-info/${id}`
       );
       if (!response.ok) {
         throw new Error("Bir hata oluştu!");

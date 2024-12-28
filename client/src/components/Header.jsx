@@ -203,7 +203,12 @@ const Header = () => {
         <div className="h-[59px] bg-gri border-b flex ">
           <div className="ml-[394px] pt-[12px]">
             <div className=" flex justify-center items-center bg-sari w-[160px] h-[33px] font-bold text-xl select-none">
-              <span className="font-kerem">sahibinden.com</span>
+              <span
+                className="font-kerem  cursor-pointer"
+                onClick={() => navigate("/")}
+              >
+                sahibinden.com
+              </span>
             </div>
           </div>
           <div className="mt-[11px] ml-[16px] ">
